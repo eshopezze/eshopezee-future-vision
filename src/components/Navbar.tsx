@@ -1,6 +1,7 @@
 import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { SmartSearch } from "@/components/SmartSearch";
 
 const navLinks = [
   { name: "All Products", href: "#products" },
@@ -43,9 +44,7 @@ export const Navbar = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
-              <Search className="w-5 h-5" />
-            </Button>
+            <SmartSearch />
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
               <User className="w-5 h-5" />
             </Button>
