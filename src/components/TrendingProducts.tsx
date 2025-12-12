@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Star, Heart, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -107,9 +108,10 @@ export const TrendingProducts = () => {
         {/* Products Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <div
+            <Link
+              to={`/product/${product.id}`}
               key={product.id}
-              className="group glass rounded-2xl overflow-hidden hover-lift border border-transparent hover:border-primary/30"
+              className="group glass rounded-2xl overflow-hidden hover-lift border border-transparent hover:border-primary/30 block"
             >
               {/* Image Container */}
               <div className="relative aspect-square overflow-hidden">
@@ -123,12 +125,20 @@ export const TrendingProducts = () => {
                   {product.tag}
                 </span>
                 {/* Wishlist Button */}
-                <button className="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-secondary transition-colors">
+                <button 
+                  onClick={(e) => e.preventDefault()}
+                  className="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-secondary transition-colors"
+                >
                   <Heart className="w-5 h-5" />
                 </button>
                 {/* Quick Add */}
                 <div className="absolute inset-x-4 bottom-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button variant="hero" className="w-full" size="sm">
+                  <Button 
+                    variant="hero" 
+                    className="w-full" 
+                    size="sm"
+                    onClick={(e) => e.preventDefault()}
+                  >
                     <ShoppingCart className="w-4 h-4" />
                     Add to Cart
                   </Button>
@@ -161,7 +171,7 @@ export const TrendingProducts = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
