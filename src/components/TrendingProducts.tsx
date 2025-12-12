@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Star, Heart, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { useCart } from "@/contexts/CartContext";
 const products = [
   {
     id: 1,
@@ -86,6 +86,20 @@ const products = [
 ];
 
 export const TrendingProducts = () => {
+  const { addItem } = useCart();
+
+  const handleAddToCart = (e: React.MouseEvent, product: typeof products[0]) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image,
+    });
+  };
+
   return (
     <section id="trending" className="py-24 relative">
       <div className="container mx-auto px-4">
@@ -137,7 +151,7 @@ export const TrendingProducts = () => {
                     variant="hero" 
                     className="w-full" 
                     size="sm"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => handleAddToCart(e, product)}
                   >
                     <ShoppingCart className="w-4 h-4" />
                     Add to Cart
