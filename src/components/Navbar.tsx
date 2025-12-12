@@ -2,7 +2,7 @@ import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { SmartSearch } from "@/components/SmartSearch";
-
+import { useCart } from "@/contexts/CartContext";
 const navLinks = [
   { name: "All Products", href: "#products" },
   { name: "Categories", href: "#categories" },
@@ -13,6 +13,7 @@ const navLinks = [
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { setIsOpen: setCartOpen, totalItems } = useCart();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
@@ -48,11 +49,18 @@ export const Navbar = () => {
             <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary">
               <User className="w-5 h-5" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary relative">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-muted-foreground hover:text-primary relative"
+              onClick={() => setCartOpen(true)}
+            >
               <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-secondary text-secondary-foreground text-xs flex items-center justify-center font-bold">
-                0
-              </span>
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-secondary text-secondary-foreground text-xs flex items-center justify-center font-bold animate-scale-in">
+                  {totalItems}
+                </span>
+              )}
             </Button>
             
             {/* Mobile Menu Toggle */}

@@ -4,6 +4,7 @@ import { Star, Heart, ShoppingCart, Minus, Plus, Truck, Shield, RotateCcw, Chevr
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { useCart } from "@/contexts/CartContext";
 
 // Sample product data
 const productsData: Record<string, {
@@ -260,6 +261,21 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    if (!product) return;
+    for (let i = 0; i < quantity; i++) {
+      addItem({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        image: product.images[0],
+      });
+    }
+    setQuantity(1);
+  };
 
   const product = id ? productsData[id] : null;
 
@@ -385,7 +401,7 @@ const ProductDetail = () => {
                 </button>
               </div>
 
-              <Button variant="hero" size="lg" className="flex-1">
+              <Button variant="hero" size="lg" className="flex-1" onClick={handleAddToCart}>
                 <ShoppingCart className="w-5 h-5" />
                 Add to Cart
               </Button>
