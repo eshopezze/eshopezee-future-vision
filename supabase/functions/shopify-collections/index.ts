@@ -43,13 +43,13 @@ serve(async (req) => {
       }
     }`;
 
-    // Fetch collections from Shopify Admin API using GraphQL
+    // Fetch collections from Shopify Storefront API using GraphQL
     const response = await fetch(
-      `https://${cleanDomain}/admin/api/2024-01/graphql.json`,
+      `https://${cleanDomain}/api/2024-01/graphql.json`,
       {
         method: 'POST',
         headers: {
-          'X-Shopify-Access-Token': shopifyAccessToken,
+          'X-Shopify-Storefront-Access-Token': shopifyAccessToken,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ query }),
