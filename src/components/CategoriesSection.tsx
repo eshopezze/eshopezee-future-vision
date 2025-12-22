@@ -1,17 +1,79 @@
-import { Home, ChefHat, Bath, Dumbbell, Lightbulb, Sparkles, Tag, ShoppingBag } from "lucide-react";
+import { Home, ChefHat, Bath, Dumbbell, Lightbulb, Sparkles, Tag, ShoppingBag, Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-const categories = [
-  { name: "Home Improvement", icon: Home, count: 150, color: "from-primary to-[hsl(200,100%,50%)]", image: "https://eshopezee.com/cdn/shop/files/81kJFDLRwmL._SL1500_small.jpg?v=1748235872" },
-  { name: "Kitchen Products", icon: ChefHat, count: 280, color: "from-secondary to-[hsl(340,100%,55%)]", image: "https://eshopezee.com/cdn/shop/files/61XnMJuxaWL._SL1002_small.jpg?v=1748235348" },
-  { name: "Bathroom Products", icon: Bath, count: 95, color: "from-accent to-[hsl(320,100%,65%)]", image: "https://eshopezee.com/cdn/shop/files/Silicone-Dishwashing-Gloves-askddeal.jpg" },
-  { name: "Fitness Products", icon: Dumbbell, count: 120, color: "from-[hsl(120,70%,45%)] to-primary", image: "https://eshopezee.com/cdn/shop/files/71ZByplQUeL._SL1500_small.jpg?v=1748235356" },
-  { name: "Lighting Products", icon: Lightbulb, count: 85, color: "from-[hsl(45,100%,50%)] to-[hsl(25,100%,55%)]", image: "https://eshopezee.com/cdn/shop/files/Sunset-Projection-Lamp_-360-Degree-Rotation-Sunset-Light_-16-Colors-LED-Projector-Night-Light-Rainbow-Lamp-_-Control-for-Home-Decor-Photography-Selfie-askddeal.com-1634285763_small.jpg?v=1748235492" },
-  { name: "Personal Care", icon: Sparkles, count: 110, color: "from-primary to-accent", image: "https://eshopezee.com/cdn/shop/files/71PrwO4FzjL._SL1500__1_small.jpg?v=1748235097" },
-  { name: "On Sale Products", icon: Tag, count: 200, color: "from-secondary to-accent", image: "https://eshopezee.com/cdn/shop/files/firstimage_small.jpg?v=1748234964" },
-  { name: "Trending Products", icon: ShoppingBag, count: 75, color: "from-[hsl(340,100%,55%)] to-secondary", image: "https://eshopezee.com/cdn/shop/files/81VO75i9jZL._SL1500_small.jpg?v=1748236245" },
+interface ShopifyCollection {
+  id: number;
+  title: string;
+  handle: string;
+  image: string | null;
+  productsCount: number;
+}
+
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  home: Home,
+  kitchen: ChefHat,
+  bathroom: Bath,
+  fitness: Dumbbell,
+  lighting: Lightbulb,
+  personal: Sparkles,
+  sale: Tag,
+  trending: ShoppingBag,
+};
+
+const colorGradients = [
+  "from-primary to-[hsl(200,100%,50%)]",
+  "from-secondary to-[hsl(340,100%,55%)]",
+  "from-accent to-[hsl(320,100%,65%)]",
+  "from-[hsl(120,70%,45%)] to-primary",
+  "from-[hsl(45,100%,50%)] to-[hsl(25,100%,55%)]",
+  "from-primary to-accent",
+  "from-secondary to-accent",
+  "from-[hsl(340,100%,55%)] to-secondary",
 ];
 
+const getIconForCollection = (title: string) => {
+  const lowerTitle = title.toLowerCase();
+  if (lowerTitle.includes('home')) return Home;
+  if (lowerTitle.includes('kitchen')) return ChefHat;
+  if (lowerTitle.includes('bath')) return Bath;
+  if (lowerTitle.includes('fitness') || lowerTitle.includes('gym')) return Dumbbell;
+  if (lowerTitle.includes('light')) return Lightbulb;
+  if (lowerTitle.includes('personal') || lowerTitle.includes('care')) return Sparkles;
+  if (lowerTitle.includes('sale') || lowerTitle.includes('discount')) return Tag;
+  return ShoppingBag;
+};
+
 export const CategoriesSection = () => {
+  const [collections, setCollections] = useState<ShopifyCollection[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCollections = async () => {
+      try {
+        const { data, error } = await supabase.functions.invoke('shopify-collections');
+        
+        if (error) {
+          console.error('Error fetching collections:', error);
+          setError('Failed to load collections');
+          return;
+        }
+        
+        if (data?.collections) {
+          setCollections(data.collections);
+        }
+      } catch (err) {
+        console.error('Error:', err);
+        setError('Failed to load collections');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCollections();
+  }, []);
+
   return (
     <section id="categories" className="py-24 relative overflow-hidden">
       {/* Background Elements */}
@@ -32,28 +94,66 @@ export const CategoriesSection = () => {
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {categories.map((category, index) => (
-            <a
-              key={category.name}
-              href={`#${category.name.toLowerCase()}`}
-              className="group glass rounded-2xl p-6 text-center hover-lift border border-transparent hover:border-primary/30 cursor-pointer"
-            >
-              <div
-                className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
-              >
-                <category.icon className="w-8 h-8 text-foreground" />
-              </div>
-              <h3 className="font-heading font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                {category.name}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {category.count.toLocaleString()} items
-              </p>
-            </a>
-          ))}
-        </div>
+        {/* Loading State */}
+        {loading && (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">{error}</p>
+          </div>
+        )}
+
+        {/* Collections Grid */}
+        {!loading && !error && collections.length > 0 && (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {collections.map((collection, index) => {
+              const IconComponent = getIconForCollection(collection.title);
+              const colorGradient = colorGradients[index % colorGradients.length];
+              
+              return (
+                <a
+                  key={collection.id}
+                  href={`#${collection.handle}`}
+                  className="group glass rounded-2xl p-6 text-center hover-lift border border-transparent hover:border-primary/30 cursor-pointer"
+                >
+                  {collection.image ? (
+                    <div className="w-16 h-16 mx-auto rounded-2xl overflow-hidden mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                      <img 
+                        src={collection.image} 
+                        alt={collection.title}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${colorGradient} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}
+                    >
+                      <IconComponent className="w-8 h-8 text-foreground" />
+                    </div>
+                  )}
+                  <h3 className="font-heading font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                    {collection.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {collection.productsCount > 0 ? `${collection.productsCount} items` : 'View collection'}
+                  </p>
+                </a>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Empty State */}
+        {!loading && !error && collections.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No collections found</p>
+          </div>
+        )}
       </div>
     </section>
   );
