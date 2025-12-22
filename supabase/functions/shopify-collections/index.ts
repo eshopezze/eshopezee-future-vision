@@ -27,7 +27,7 @@ serve(async (req) => {
 
     // Fetch collections from Shopify Admin API
     const response = await fetch(
-      `https://${cleanDomain}/admin/api/2024-01/custom_collections.json`,
+      `https://${cleanDomain}/admin/api/2024-01/graphql.json`,
       {
         headers: {
           'X-Shopify-Access-Token': shopifyAccessToken,
