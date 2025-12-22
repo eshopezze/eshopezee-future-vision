@@ -25,14 +25,34 @@ serve(async (req) => {
     
     console.log(`Fetching collections from Shopify store: ${cleanDomain}`);
 
-    // Fetch collections from Shopify Admin API
+    // GraphQL query to fetch collections
+    const query = `{
+      collections(first: 10) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            image {
+              url
+            }
+            productsCount
+          }
+        }
+      }
+    }`;
+
+    // Fetch collections from Shopify Admin API using GraphQL
     const response = await fetch(
       `https://${cleanDomain}/admin/api/2024-01/graphql.json`,
       {
+        method: 'POST',
         headers: {
           'X-Shopify-Access-Token': shopifyAccessToken,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ query }),
       }
     );
 
@@ -43,41 +63,27 @@ serve(async (req) => {
       throw new Error(`Shopify API error: ${response.status}`);
     }
 
-    const customCollections = await response.json();
-    console.log(`Fetched ${customCollections.custom_collections?.length || 0} custom collections`);
+    const result = await response.json();
+    console.log('GraphQL response:', JSON.stringify(result, null, 2));
 
-    // Also fetch smart collections
-    const smartResponse = await fetch(
-      `https://${cleanDomain}/admin/api/2024-01/smart_collections.json`,
-      {
-        headers: {
-          'X-Shopify-Access-Token': shopifyAccessToken,
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-
-    let smartCollections = { smart_collections: [] };
-    if (smartResponse.ok) {
-      smartCollections = await smartResponse.json();
-      console.log(`Fetched ${smartCollections.smart_collections?.length || 0} smart collections`);
+    if (result.errors) {
+      console.error('GraphQL errors:', result.errors);
+      throw new Error(`GraphQL error: ${result.errors[0]?.message || 'Unknown error'}`);
     }
 
-    // Combine and format collections
-    const allCollections = [
-      ...(customCollections.custom_collections || []),
-      ...(smartCollections.smart_collections || []),
-    ].map((collection: any) => ({
-      id: collection.id,
-      title: collection.title,
-      handle: collection.handle,
-      image: collection.image?.src || null,
-      productsCount: collection.products_count || 0,
-    }));
+    // Format collections from GraphQL response
+    const collections = result.data?.collections?.edges?.map((edge: any) => ({
+      id: edge.node.id,
+      title: edge.node.title,
+      handle: edge.node.handle,
+      description: edge.node.description,
+      image: edge.node.image?.url || null,
+      productsCount: edge.node.productsCount || 0,
+    })) || [];
 
-    console.log(`Returning ${allCollections.length} total collections`);
+    console.log(`Returning ${collections.length} total collections`);
 
-    return new Response(JSON.stringify({ collections: allCollections }), {
+    return new Response(JSON.stringify({ collections }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
