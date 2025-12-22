@@ -25,7 +25,7 @@ serve(async (req) => {
     
     console.log(`Fetching collections from Shopify store: ${cleanDomain}`);
 
-    // GraphQL query to fetch collections
+    // GraphQL query to fetch collections (Storefront API)
     const query = `{
       collections(first: 10) {
         edges {
@@ -37,7 +37,6 @@ serve(async (req) => {
             image {
               url
             }
-            productsCount
           }
         }
       }
@@ -78,7 +77,6 @@ serve(async (req) => {
       handle: edge.node.handle,
       description: edge.node.description,
       image: edge.node.image?.url || null,
-      productsCount: edge.node.productsCount || 0,
     })) || [];
 
     console.log(`Returning ${collections.length} total collections`);
