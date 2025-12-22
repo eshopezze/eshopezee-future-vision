@@ -1,5 +1,6 @@
 import { Home, ChefHat, Bath, Dumbbell, Lightbulb, Sparkles, Tag, ShoppingBag, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
 interface ShopifyCollection {
@@ -45,6 +46,7 @@ const getIconForCollection = (title: string) => {
 };
 
 export const CategoriesSection = () => {
+  const navigate = useNavigate();
   const [collections, setCollections] = useState<ShopifyCollection[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,9 +118,9 @@ export const CategoriesSection = () => {
               const colorGradient = colorGradients[index % colorGradients.length];
               
               return (
-                <a
+                <div
                   key={collection.id}
-                  href={`#${collection.handle}`}
+                  onClick={() => navigate(`/collection/${collection.handle}`)}
                   className="group glass rounded-2xl p-6 text-center hover-lift border border-transparent hover:border-primary/30 cursor-pointer"
                 >
                   {collection.image ? (
@@ -142,7 +144,7 @@ export const CategoriesSection = () => {
                   <p className="text-sm text-muted-foreground">
                     {collection.productsCount > 0 ? `${collection.productsCount} items` : 'View collection'}
                   </p>
-                </a>
+                </div>
               );
             })}
           </div>
