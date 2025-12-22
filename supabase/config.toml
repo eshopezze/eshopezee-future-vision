@@ -1,7 +1,0 @@
-project_id = "ulwawmajnhphejqewhwg"
-
-[functions.smart-search]
-verify_jwt = false
-
-[functions.shopify-collections]
-verify_jwt = false
