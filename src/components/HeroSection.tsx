@@ -90,7 +90,7 @@ export const HeroSection = () => {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/30 mb-6 backdrop-blur-md">
                 <Sparkles className="w-4 h-4 text-primary animate-pulse" />
-                <span className="text-sm font-bold tracking-wider text-primary-foreground/90 uppercase">
+                <span className="text-sm font-bold tracking-wider text-white uppercase">
                   {slide.badge}
                 </span>
               </div>
@@ -117,10 +117,7 @@ export const HeroSection = () => {
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Button variant="heroOutline" size="xl" className="text-lg px-8 py-6 rounded-2xl backdrop-blur-md bg-white/5 border-white/10 hover:bg-white/10">
-                  <Zap className="w-5 h-5 mr-2 text-yellow-400" />
-                  View Features
-                </Button>
+
               </div>
             </motion.div>
           </AnimatePresence>

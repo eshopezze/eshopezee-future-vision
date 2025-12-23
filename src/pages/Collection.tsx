@@ -57,19 +57,7 @@ const Collection = () => {
     fetchProducts();
   }, [handle, fallbackTitle]);
 
-  const handleAddToCart = (product: Product) => {
-    // Attempt to extract numeric ID from Shopify GID
-    const numericId = product.id.split('/').pop();
 
-    addItem({
-      id: numericId ? parseInt(numericId) : Math.random(),
-      name: product.name,
-      price: product.price,
-      originalPrice: product.originalPrice || product.price,
-      image: product.image,
-    });
-    toast.success(`${product.name} added to cart`);
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -121,58 +109,48 @@ const Collection = () => {
                 products.map((product) => (
                   <div
                     key={product.id}
-                    className="group glass rounded-2xl overflow-hidden border border-transparent hover:border-primary/30 transition-all duration-300 hover-lift"
+                    className="group bg-white/[0.02] border border-white/5 rounded-2xl p-3 hover:border-white/10 transition-all duration-500 relative overflow-hidden"
                   >
-                    {/* Product Image */}
-                    <div className="relative aspect-square overflow-hidden cursor-pointer" onClick={() => navigate(`/product/${product.handle}`)}>
+                    <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                    <div className="relative aspect-square overflow-hidden mb-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-primary/10 transition-all duration-700 shadow-inner" onClick={() => navigate(`/product/${product.handle}`)}>
                       <img
                         src={product.image || "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop"}
                         alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
                       />
                       {product.originalPrice && product.originalPrice > product.price && (
-                        <span className="absolute top-3 left-3 bg-secondary text-secondary-foreground text-xs font-bold px-2 py-1 rounded-full">
+                        <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-md border border-white/10 text-primary text-[8px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase tracking-wider">
                           SALE
-                        </span>
+                        </div>
                       )}
-                      <button className="absolute top-3 right-3 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary hover:text-primary-foreground">
-                        <Heart className="w-4 h-4" />
-                      </button>
                     </div>
 
-                    {/* Product Info */}
-                    <div className="p-4">
-                      <h3 className="font-heading font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-primary transition-colors">
+                    <Link to={`/product/${product.handle}`} className="block">
+                      <h3 className="text-xs md:text-sm font-semibold text-foreground/90 line-clamp-2 mb-2 px-1 group-hover:text-primary transition-colors duration-300 h-9 leading-tight">
                         {product.name}
                       </h3>
-
-                      {/* Rating */}
-                      <div className="flex items-center gap-1 mb-3">
-                        <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium text-foreground">{product.rating}</span>
-                        <span className="text-sm text-muted-foreground">({product.reviews})</span>
+                      <div className="flex items-center gap-2 mb-3 px-1">
+                        <span className="text-foreground font-bold text-base">₹{product.price}</span>
+                        {product.originalPrice && product.originalPrice > product.price && (
+                          <span className="text-sm text-muted-foreground line-through">
+                            ₹{product.originalPrice}
+                          </span>
+                        )}
                       </div>
+                    </Link>
 
-                      {/* Price */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg font-bold text-primary">₹{product.price}</span>
-                          {product.originalPrice && product.originalPrice > product.price && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              ₹{product.originalPrice}
-                            </span>
-                          )}
-                        </div>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="gap-1 border-primary/20 hover:border-primary"
-                          onClick={() => handleAddToCart(product)}
-                        >
-                          <ShoppingCart className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
+                    <Button
+                      size="sm"
+                      className="w-full h-9 font-bold rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_15px_hsla(175,100%,50%,0.3)] transition-all duration-300 flex items-center justify-center gap-2 group/btn z-20 relative"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addItem(product.id, 1);
+                      }}
+                    >
+                      <ShoppingCart className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:scale-110" />
+                      <span className="uppercase tracking-[0.15em] text-[9px]">Add</span>
+                    </Button>
                   </div>
                 ))
               ) : (

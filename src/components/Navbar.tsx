@@ -44,21 +44,35 @@ export const Navbar = () => {
     loadCollections();
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
       <div className="container mx-auto">
-        <div className="flex items-center justify-between h-20 px-6 sm:px-12 lg:px-20">
+        <div className="flex items-center justify-between h-20 px-6 sm:px-12 lg:px-20 relative z-50">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group shrink-0 min-w-0">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-heading font-bold text-primary-foreground text-base sm:text-lg group-hover:shadow-[0_0_20px_hsla(175,100%,50%,0.5)] transition-shadow duration-300">
+          <Link to="/" className="flex items-center gap-3 group shrink-0 transition-transform active:scale-95">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-heading font-bold text-primary-foreground text-lg sm:text-xl group-hover:shadow-[0_10px_30px_hsla(175,100%,50%,0.3)] transition-all duration-500">
               E
             </div>
-            <span className="font-heading font-bold text-base sm:text-xl tracking-wider hidden xs:inline-block truncate">
-              <span className="text-primary leading-none">ESHOP</span>
-              <span className="text-secondary hidden sm:inline ml-1">EZEE</span>
-            </span>
+            <div className="flex flex-col -space-y-1">
+              <span className="font-heading font-bold text-lg sm:text-2xl tracking-tight text-white">
+                ESHOP<span className="text-primary">EZEE</span>
+              </span>
+              <span className="text-[9px] font-bold text-muted-foreground/40 tracking-[0.3em] uppercase hidden sm:block">AI Powered Store</span>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
@@ -139,33 +153,33 @@ export const Navbar = () => {
             <SmartSearch />
             {user ? (
               <div className="relative group hidden sm:block">
-                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary transition-transform hover:scale-110">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs border border-primary/20 capitalize">
+                <Button variant="ghost" size="icon" className="w-11 h-11 text-muted-foreground hover:text-primary transition-all duration-300 hover:bg-white/5 rounded-2xl">
+                  <div className="w-8 h-8 rounded-xl bg-primary/20 text-primary flex items-center justify-center font-bold text-xs border border-primary/20 capitalize">
                     {user.firstName[0]}
                   </div>
                 </Button>
-                <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="w-48 glass rounded-2xl p-2 animate-in slide-in-from-top-1">
-                    <div className="px-3 py-2 border-b border-border/30 mb-1">
+                <div className="absolute right-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <div className="w-56 glass rounded-[1.5rem] p-3 shadow-2xl border-white/5">
+                    <div className="px-4 py-3 border-b border-white/5 mb-2">
                       <p className="text-xs font-bold text-foreground truncate">{user.firstName} {user.lastName}</p>
-                      <p className="text-[10px] text-muted-foreground truncate">{user.email}</p>
+                      <p className="text-[10px] text-muted-foreground/60 truncate uppercase tracking-tighter">{user.email}</p>
                     </div>
                     <button
                       onClick={() => {
                         navigate("/profile");
                         setIsOpen(false);
                       }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-foreground hover:bg-primary/10 transition-colors flex items-center gap-2"
+                      className="w-full text-left px-4 py-3 rounded-xl text-xs font-medium text-foreground hover:bg-primary/10 transition-colors flex items-center gap-3"
                     >
-                      <User className="w-4 h-4" />
-                      My Profile
+                      <User className="w-4 h-4 text-primary" />
+                      My Account
                     </button>
                     <button
                       onClick={logout}
-                      className="w-full text-left px-3 py-2 rounded-xl text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors flex items-center gap-2"
+                      className="w-full text-left px-4 py-3 rounded-xl text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors flex items-center gap-3"
                     >
                       <LogOut className="w-4 h-4" />
-                      Log Out
+                      Sign Out
                     </button>
                   </div>
                 </div>
@@ -174,7 +188,7 @@ export const Navbar = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="hidden sm:flex text-muted-foreground hover:text-primary transition-transform hover:scale-110"
+                className="hidden sm:flex w-11 h-11 text-muted-foreground hover:text-primary transition-all duration-300 hover:bg-white/5 rounded-2xl"
                 onClick={() => navigate("/login")}
               >
                 <User className="w-5 h-5" />
@@ -208,97 +222,107 @@ export const Navbar = () => {
 
         {/* Mobile Nav */}
         <div className={cn(
-          "lg:hidden transition-all duration-500 ease-in-out glass-strong backdrop-blur-2xl border-t border-primary/10 overflow-y-auto scrollbar-hide",
-          isOpen ? "max-h-screen py-8 opacity-100 translate-y-0" : "max-h-0 py-0 opacity-0 -translate-y-4"
+          "lg:hidden fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl transition-all duration-300 ease-in-out pt-24 pb-8 px-6 h-[100dvh] overflow-hidden flex flex-col",
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}>
-          <div className="flex flex-col gap-10 px-4">
-            <div className="space-y-6">
+          <div className="flex flex-col h-full">
+            <div className="space-y-4 flex-1">
               <div className="flex items-center justify-between px-2">
                 <p className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Shop by Category</p>
                 <div className="h-[2px] w-12 bg-primary/20 rounded-full" />
               </div>
-              <div className="grid grid-cols-1 gap-2 px-2">
+              <div className="grid grid-cols-2 gap-2">
                 {collections.map((collection) => (
                   <Link
                     key={collection.id}
                     to={`/collection/${collection.handle}`}
                     className={cn(
-                      "flex items-center gap-4 p-3 rounded-2xl glass border border-transparent transition-all",
+                      "flex items-center gap-2 p-2 rounded-xl glass border border-transparent transition-all",
                       isActive(`/collection/${collection.handle}`) ? "border-primary/50 text-primary bg-primary/5 ring-1 ring-primary/20" : "hover:border-primary/30"
                     )}
                     onClick={() => setIsOpen(false)}
                   >
                     {collection.image?.url ? (
-                      <div className="w-12 h-12 rounded-xl overflow-hidden border border-primary/10">
+                      <div className="w-8 h-8 rounded-lg overflow-hidden border border-primary/10 shrink-0">
                         <img src={collection.image.url} alt={collection.title} className="w-full h-full object-cover" />
                       </div>
                     ) : (
-                      <div className="w-12 h-12 rounded-xl bg-primary/5 flex items-center justify-center border border-primary/10">
-                        <span className="text-primary font-bold">{collection.title.charAt(0)}</span>
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center border border-primary/10 shrink-0">
+                        <span className="text-primary font-bold text-xs">{collection.title.charAt(0)}</span>
                       </div>
                     )}
-                    <div className="flex flex-col">
-                      <span className="text-sm font-semibold">{collection.title}</span>
-                      <span className="text-[10px] text-muted-foreground leading-tight">Explore latest inventory</span>
-                    </div>
+                    <span className="text-xs font-semibold truncate line-clamp-1">{collection.title}</span>
                   </Link>
                 ))}
               </div>
             </div>
+          </div>
 
-            <div className="space-y-4 px-2">
-              <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-2">Quick Links</p>
-              <div className="flex flex-col gap-2">
-                {staticLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className={cn(
-                      "p-4 rounded-2xl glass border border-transparent transition-all",
-                      isActive(link.href) ? "border-primary/50 text-primary bg-primary/5 ring-1 ring-primary/20" : "hover:border-primary/30"
-                    )}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <span className="font-semibold">{link.name}</span>
-                  </Link>
-                ))}
-                {user ? (
-                  <div className="p-4 rounded-2xl glass border border-primary/10 bg-primary/5 space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold border border-primary/20 capitalize">
-                        {user.firstName[0]}
-                      </div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-bold text-foreground truncate">{user.firstName} {user.lastName}</p>
-                        <p className="text-[10px] text-muted-foreground truncate">{user.email}</p>
-                      </div>
+          <div className="space-y-4 px-2">
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-2">Quick Links</p>
+            <div className="flex flex-col gap-2">
+              {staticLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className={cn(
+                    "p-3 rounded-xl glass border border-transparent transition-all",
+                    isActive(link.href) ? "border-primary/50 text-primary bg-primary/5 ring-1 ring-primary/20" : "hover:border-primary/30"
+                  )}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="font-semibold text-xs">{link.name}</span>
+                </Link>
+              ))}
+              {user ? (
+                <div className="p-4 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg border border-primary/20 capitalize shadow-[0_0_20px_hsla(175,100%,50%,0.1)]">
+                      {user.firstName[0]}
                     </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold text-white truncate">{user.firstName} {user.lastName}</p>
+                      <p className="text-[10px] text-muted-foreground truncate font-medium">{user.email}</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="w-full text-destructive border-destructive/20 hover:bg-destructive/10"
+                      className="w-full bg-white/5 border-white/10 hover:bg-white/10 hover:text-white h-10 rounded-xl"
+                      onClick={() => {
+                        navigate("/profile");
+                        setIsOpen(false);
+                      }}
+                    >
+                      Profile
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-destructive border-destructive/20 hover:bg-destructive/10 h-10 rounded-xl"
                       onClick={() => {
                         logout();
                         setIsOpen(false);
                       }}
                     >
-                      Log Out
+                      Sign Out
                     </Button>
                   </div>
-                ) : (
-                  <Link
-                    to="/login"
-                    className={cn(
-                      "p-4 rounded-2xl glass border border-transparent transition-all flex items-center gap-3",
-                      isActive("/login") ? "border-primary/50 text-primary bg-primary/5" : "hover:border-primary/30"
-                    )}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <User className="w-5 h-5" />
-                    <span className="font-semibold">Log In</span>
-                  </Link>
-                )}
-              </div>
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className={cn(
+                    "p-4 rounded-2xl glass border border-transparent transition-all flex items-center gap-3",
+                    isActive("/login") ? "border-primary/50 text-primary bg-primary/5" : "hover:border-primary/30"
+                  )}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <User className="w-5 h-5" />
+                  <span className="font-semibold">Log In</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
