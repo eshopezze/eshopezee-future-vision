@@ -1,12 +1,13 @@
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const footerLinks = {
   shop: [
-    { name: "All Products", href: "#" },
-    { name: "Trending", href: "#" },
-    { name: "On Sale", href: "#" },
-    { name: "New Arrivals", href: "#" },
+    { name: "All Products", href: "/products" },
+    { name: "Trending", href: "/collection/trending-product" },
+    { name: "On Sale", href: "/products" },
+    { name: "New Arrivals", href: "/collection/electronics" },
   ],
   support: [
     { name: "Contact Us", href: "#" },
@@ -55,14 +56,21 @@ export const Footer = () => {
             {/* Newsletter */}
             <div className="space-y-4">
               <p className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Join our futuristic newsletter</p>
-              <div className="flex gap-2 p-1 rounded-2xl bg-muted/50 border border-border/50 focus-within:border-primary/50 transition-all max-w-md">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  alert("Thank you for subscribing!");
+                }}
+                className="flex gap-2 p-1 rounded-2xl bg-muted/50 border border-border/50 focus-within:border-primary/50 transition-all max-w-md"
+              >
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  required
                   className="flex-1 px-4 py-3 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none text-sm"
                 />
-                <Button variant="hero" className="rounded-xl px-6">Subscribe</Button>
-              </div>
+                <Button type="submit" variant="hero" className="rounded-xl px-6 hover:transform-none transition-none">Subscribe</Button>
+              </form>
             </div>
           </div>
 
@@ -72,9 +80,9 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -102,11 +110,11 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-primary mt-0.5" />
-                <span className="text-muted-foreground">+91 98765 43210</span>
+                <span className="text-muted-foreground">9011164515</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                <span className="text-muted-foreground">Mumbai, Maharashtra, India</span>
+                <span className="text-muted-foreground">Ambernath , Mumbai, Maharashtra, India</span>
               </li>
             </ul>
           </div>
