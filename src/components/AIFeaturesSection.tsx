@@ -13,18 +13,18 @@ const features = [
     description: "Natural language search that understands what you're looking for instantly.",
     color: "secondary",
   },
-  {
-    icon: Sparkles,
-    title: "Visual Discovery",
-    description: "Upload an image and find similar products using AI image recognition.",
-    color: "accent",
-  },
-  {
-    icon: TrendingUp,
-    title: "Price Tracking",
-    description: "AI monitors prices and alerts you when products drop to your target price.",
-    color: "primary",
-  },
+  // {
+  //   icon: Sparkles,
+  //   title: "Visual Discovery",
+  //   description: "Upload an image and find similar products using AI image recognition.",
+  //   color: "accent",
+  // },
+  // {
+  //   icon: TrendingUp,
+  //   title: "Price Tracking",
+  //   description: "AI monitors prices and alerts you when products drop to your target price.",
+  //   color: "primary",
+  // },
   {
     icon: ShieldCheck,
     title: "Fraud Protection",
@@ -62,7 +62,7 @@ export const AIFeaturesSection = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <div
               key={feature.title}
@@ -71,10 +71,10 @@ export const AIFeaturesSection = () => {
             >
               <div
                 className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${feature.color === "primary"
-                    ? "bg-primary/20 text-primary"
-                    : feature.color === "secondary"
-                      ? "bg-secondary/20 text-secondary"
-                      : "bg-accent/20 text-accent"
+                  ? "bg-primary/20 text-primary"
+                  : feature.color === "secondary"
+                    ? "bg-secondary/20 text-secondary"
+                    : "bg-accent/20 text-accent"
                   } group-hover:scale-110 transition-transform duration-300`}
               >
                 <feature.icon className="w-7 h-7" />

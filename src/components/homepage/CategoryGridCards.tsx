@@ -78,7 +78,7 @@ export const CategoryGridCards = () => {
         const loadCollections = async () => {
             try {
                 const data = await fetchAllCollections();
-                setCollections(data.slice(0, 4));
+                setCollections(data.slice(0, 5));
             } catch (error) {
                 console.error("Failed to load collections for grid cards:", error);
             }

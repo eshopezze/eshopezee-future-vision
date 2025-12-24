@@ -10,6 +10,7 @@ export const CategoryCircles = () => {
         const loadCollections = async () => {
             try {
                 const data = await fetchAllCollections();
+                console.log(data);
                 setCollections(data.slice(0, 5)); // Top 5 for the circle row
             } catch (error) {
                 console.error("Failed to load collections:", error);
