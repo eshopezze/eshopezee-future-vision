@@ -18,7 +18,10 @@ const Login = () => {
         try {
             await login(email, password);
             const redirect = searchParams.get("redirect");
-            if (redirect) {
+            if (redirect === 'checkout') {
+                // Redirect to home with cart open, user can then proceed to checkout
+                navigate('/?cart=open');
+            } else if (redirect) {
                 window.location.href = redirect;
             } else {
                 navigate(-1); // Go back to previous page or home

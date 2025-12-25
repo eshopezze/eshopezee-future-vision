@@ -145,7 +145,7 @@ export const CartSidebar = () => {
               onClick={() => {
                 if (!user) {
                   setIsOpen(false);
-                  navigate(`/login?redirect=${encodeURIComponent(checkoutUrl || "")}`);
+                  navigate('/login?redirect=checkout');
                   return;
                 }
                 if (checkoutUrl) window.location.href = checkoutUrl;

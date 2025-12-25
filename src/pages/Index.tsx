@@ -2,6 +2,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { useEffect, useState, lazy, Suspense } from "react";
 import { fetchAllProducts, type FormattedProduct } from "@/lib/shopifyClient";
+import { useSearchParams } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 // Lazy load components for better performance
 
@@ -19,6 +21,8 @@ const Index = () => {
   const [trendingProducts, setTrendingProducts] = useState<FormattedProduct[]>([]);
   const [newArrivals, setNewArrivals] = useState<FormattedProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+  const { setIsOpen } = useCart();
 
   useEffect(() => {
     const loadHomeData = async () => {
@@ -36,6 +40,13 @@ const Index = () => {
     };
     loadHomeData();
   }, []);
+
+  // Open cart if redirected from login with cart=open
+  useEffect(() => {
+    if (searchParams.get('cart') === 'open') {
+      setIsOpen(true);
+    }
+  }, [searchParams, setIsOpen]);
 
   return (
     <main className="min-h-screen bg-background overflow-x-hidden pt-20">
