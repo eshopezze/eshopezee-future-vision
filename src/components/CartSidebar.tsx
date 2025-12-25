@@ -1,10 +1,13 @@
 import { X, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CartSidebar = () => {
   const { items, isOpen, setIsOpen, updateQuantity, removeItem, clearCart, totalItems, totalPrice, checkoutUrl, loading } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
@@ -140,6 +143,11 @@ export const CartSidebar = () => {
               className="w-full"
               disabled={loading || !checkoutUrl}
               onClick={() => {
+                if (!user) {
+                  setIsOpen(false);
+                  navigate(`/login?redirect=${encodeURIComponent(checkoutUrl || "")}`);
+                  return;
+                }
                 if (checkoutUrl) window.location.href = checkoutUrl;
               }}
             >

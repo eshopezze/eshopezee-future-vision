@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/Navbar";
@@ -11,12 +11,18 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const { login, loading } = useAuth();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             await login(email, password);
-            navigate(-1); // Go back to previous page or home
+            const redirect = searchParams.get("redirect");
+            if (redirect) {
+                window.location.href = redirect;
+            } else {
+                navigate(-1); // Go back to previous page or home
+            }
         } catch (err) {
             // Error handled in AuthContext with toast
         }

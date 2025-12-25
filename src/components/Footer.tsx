@@ -10,16 +10,16 @@ const footerLinks = {
     { name: "New Arrivals", href: "/collection/electronics" },
   ],
   support: [
-    { name: "Contact Us", href: "#" },
-    { name: "FAQs", href: "#" },
-    { name: "Shipping Info", href: "#" },
-    { name: "Returns", href: "#" },
+    { name: "Contact Us", href: "/" },
+    { name: "FAQs", href: "/" },
+    { name: "Shipping Info", href: "/" },
+    { name: "Returns", href: "/" },
   ],
   company: [
-    { name: "About Us", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Privacy Policy", href: "#" },
-    { name: "Terms of Service", href: "#" },
+    { name: "About Us", href: "/" },
+    { name: "Careers", href: "/" },
+    { name: "Privacy Policy", href: "/" },
+    { name: "Terms of Service", href: "/" },
   ],
 };
 
@@ -40,7 +40,7 @@ export const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center gap-2 mb-8 group">
+            <Link to="/" className="flex items-center gap-2 mb-8 group">
               <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-heading font-bold text-primary-foreground text-lg group-hover:shadow-[0_0_20px_hsla(175,100%,50%,0.5)] transition-all duration-300">
                 E
               </div>
@@ -48,7 +48,7 @@ export const Footer = () => {
                 <span className="text-primary group-hover:text-glow-subtle transition-all">ESHOP</span>
                 <span className="text-secondary ml-1">EZEE</span>
               </span>
-            </a>
+            </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
               The future of online shopping. Experience AI-powered recommendations,
               seamless checkout, and unbeatable deals.
@@ -93,9 +93,9 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-muted-foreground hover:text-primary transition-colors">
+                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -110,11 +110,11 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-primary mt-0.5" />
-                <span className="text-muted-foreground">9011164515</span>
+                <span className="text-muted-foreground">+91 98765 43210</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary mt-0.5" />
-                <span className="text-muted-foreground">Ambernath , Mumbai, Maharashtra, India</span>
+                <span className="text-muted-foreground">Mumbai, Maharashtra, India</span>
               </li>
             </ul>
           </div>
