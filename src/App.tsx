@@ -13,6 +13,8 @@ import AllProducts from "./pages/AllProducts";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import Page from "./pages/Page";
+import Policy from "./pages/Policy";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -33,6 +35,8 @@ const App = () => (
               <Route path="/products" element={<AllProducts />} />
               <Route path="/product/:handle" element={<ProductDetail />} />
               <Route path="/collection/:handle" element={<Collection />} />
+              <Route path="/pages/:handle" element={<Page />} />
+              <Route path="/policies/:type" element={<Policy />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/profile" element={<Profile />} />

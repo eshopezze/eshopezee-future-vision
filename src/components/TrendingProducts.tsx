@@ -45,7 +45,7 @@ export const TrendingProducts = () => {
     e.preventDefault();
     e.stopPropagation();
 
-    addItem(product.id, 1);
+    addItem(product.variantId, 1);
   };
 
   return (

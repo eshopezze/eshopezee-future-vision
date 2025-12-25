@@ -123,6 +123,7 @@ export interface PaginatedProducts {
 
 export interface FormattedProduct {
   id: string;
+  variantId: string;
   name: string;
   handle: string;
   description: string;
@@ -131,6 +132,14 @@ export interface FormattedProduct {
   image: string | null;
   rating: number;
   reviews: number;
+}
+
+export interface ShopifyPage {
+  id: string;
+  title: string;
+  handle: string;
+  body: string;
+  bodySummary: string;
 }
 
 export interface CollectionInfo {
@@ -339,6 +348,7 @@ export async function fetchCollectionProducts(handle: string): Promise<{
 
     return {
       id: p.id,
+      variantId: variant?.id || p.id,
       name: p.title,
       handle: p.handle,
       description: p.description,
@@ -614,6 +624,7 @@ export async function fetchAllProducts(first: number = 12, after: string | null 
           variants(first: 1) {
             edges {
               node {
+                id
                 price {
                   amount
                 }
@@ -643,6 +654,7 @@ export async function fetchAllProducts(first: number = 12, after: string | null 
       const variant = node.variants.edges[0]?.node;
       return {
         id: node.id,
+        variantId: variant?.id || node.id,
         name: node.title,
         handle: node.handle,
         description: node.description,
@@ -710,6 +722,7 @@ export async function searchProductsAndCollections(searchTerm: string): Promise<
             variants(first: 1) {
               edges {
                 node {
+                  id
                   price {
                     amount
                   }
@@ -761,6 +774,7 @@ export async function searchProductsAndCollections(searchTerm: string): Promise<
       const variant = node.variants?.edges[0]?.node;
       products.push({
         id: node.id,
+        variantId: variant?.id || node.id,
         name: node.title,
         handle: node.handle,
         description: node.description || '',
@@ -1233,4 +1247,129 @@ export async function updateCustomerAddress(accessToken: string, addressId: stri
   }
 
   return result.customerAddress;
+}
+
+/**
+ * Pages - Fetch content pages from Shopify
+ */
+
+interface PageData {
+  page: {
+    id: string;
+    title: string;
+    handle: string;
+    body: string;
+    bodySummary: string;
+  } | null;
+}
+
+interface PagesData {
+  pages: {
+    edges: Array<{
+      node: {
+        id: string;
+        title: string;
+        handle: string;
+        bodySummary: string;
+      };
+    }>;
+  };
+}
+
+/**
+ * Fetch a single page by its handle
+ */
+export async function fetchPageByHandle(handle: string): Promise<ShopifyPage | null> {
+  const query = `{
+    page(handle: "${handle}") {
+      id
+      title
+      handle
+      body
+      bodySummary
+    }
+  }`;
+
+  const data = await shopifyFetch<PageData>(query);
+
+  if (!data.page) {
+    return null;
+  }
+
+  return data.page;
+}
+
+/**
+ * Fetch all available pages
+ */
+export async function fetchAllPages(): Promise<ShopifyPage[]> {
+  const query = `{
+    pages(first: 50) {
+      edges {
+        node {
+          id
+          title
+          handle
+          bodySummary
+        }
+      }
+    }
+  }`;
+
+  const data = await shopifyFetch<PagesData>(query);
+
+  return data.pages.edges.map(edge => ({
+    ...edge.node,
+    body: '', // Body not fetched in list view for performance
+  }));
+}
+
+/**
+ * Policies - Fetch shop policies (Privacy, Terms, Refund, Shipping)
+ */
+
+export interface ShopPolicy {
+  id: string;
+  title: string;
+  body: string;
+  url: string;
+}
+
+type PolicyType = 'privacyPolicy' | 'termsOfService' | 'refundPolicy' | 'shippingPolicy';
+
+interface ShopPolicyData {
+  shop: {
+    [key in PolicyType]?: {
+      id: string;
+      title: string;
+      body: string;
+      url: string;
+    } | null;
+  };
+}
+
+/**
+ * Fetch a specific shop policy by type
+ */
+export async function fetchShopPolicy(policyType: PolicyType): Promise<ShopPolicy | null> {
+  const query = `{
+    shop {
+      ${policyType} {
+        id
+        title
+        body
+        url
+      }
+    }
+  }`;
+
+  const data = await shopifyFetch<ShopPolicyData>(query);
+
+  const policy = data.shop[policyType];
+
+  if (!policy) {
+    return null;
+  }
+
+  return policy;
 }

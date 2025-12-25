@@ -106,7 +106,7 @@ const ProductScroller = ({ title, subtitle, products, loading, collectionLink }:
                                     className="w-full h-9 font-bold rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_15px_hsla(175,100%,50%,0.3)] transition-all duration-300 flex items-center justify-center gap-2 group/btn z-20 relative"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        addItem(product.id, 1);
+                                        addItem(product.variantId, 1);
                                     }}
                                 >
                                     <ShoppingCart className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:scale-110" />
