@@ -62,17 +62,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        neon: {
-          cyan: "hsl(175 100% 50%)",
-          orange: "hsl(25 100% 55%)",
-          purple: "hsl(280 100% 65%)",
-          pink: "hsl(340 100% 55%)",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        clay: "var(--shadow-clay)",
       },
       keyframes: {
         "accordion-down": {
@@ -88,8 +85,8 @@ export default {
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsla(175, 100%, 50%, 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsla(175, 100%, 50%, 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsla(16, 55%, 54%, 0.2)" },
+          "50%": { boxShadow: "0 0 40px hsla(16, 55%, 54%, 0.4)" },
         },
       },
       animation: {
@@ -101,7 +98,7 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'hero-glow': 'radial-gradient(ellipse at center top, hsla(175, 100%, 50%, 0.15) 0%, transparent 60%)',
+        'hero-glow': 'radial-gradient(ellipse at center top, hsla(16, 55%, 54%, 0.1) 0%, transparent 60%)',
       },
     },
   },

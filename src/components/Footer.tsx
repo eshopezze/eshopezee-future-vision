@@ -27,55 +27,52 @@ const socialLinks = [
 
 export const Footer = () => {
   return (
-    <footer className="relative border-t border-border/30 pt-24 pb-12 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-primary/5 rounded-full blur-[150px]" />
-
-      <div className="container mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
+    <footer className="relative bg-[#2A2A2A] pt-24 pb-12 overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] -mr-64 -mt-64" />
+      <div className="container mx-auto px-6 sm:px-12 lg:px-20 relative z-10 text-[#FAF8F4]">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-6 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-heading font-bold text-primary-foreground text-lg group-hover:shadow-[0_0_20px_hsla(175,100%,50%,0.5)] transition-all duration-300">
+              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center font-heading font-bold text-primary-foreground text-lg group-hover:scale-105 transition-all duration-300">
                 E
               </div>
-              <span className="font-heading font-bold text-xl tracking-wider">
-                <span className="text-primary group-hover:text-glow-subtle transition-all">ESHOP</span>
-                <span className="text-secondary ml-1">EZEE</span>
+              <span className="font-heading font-bold text-xl tracking-tight text-foreground uppercase">
+                ESHOP<span className="text-primary">EZEE</span>
               </span>
             </Link>
-            <p className="text-muted-foreground mb-6 max-w-sm text-sm">
-              The future of online shopping. Experience AI-powered recommendations,
-              seamless checkout, and unbeatable deals.
+            <p className="text-[#FAF8F4]/70 mb-8 max-w-sm text-sm leading-relaxed font-medium">
+              Curating the finest artisanal experiences for the modern privilege lifestyle.
+              Timeless quality, meticulous textures, and dedicated craftsmanship.
             </p>
             {/* Newsletter */}
-            <div className="space-y-3">
-              <p className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Join our newsletter</p>
+            <div className="space-y-4">
+              <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em] pl-1">Join the Privilege List</p>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  alert("Thank you for subscribing!");
+                  alert("Welcome to the Heritage Collection!");
                 }}
-                className="flex gap-2 p-1 rounded-2xl bg-muted/50 border border-border/50 focus-within:border-primary/50 transition-all max-w-md"
+                className="flex gap-2 p-1.5 rounded-2xl bg-white/5 border border-white/10 focus-within:border-primary/50 transition-all max-w-md"
               >
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Your privilege email"
                   required
-                  className="flex-1 px-4 py-2.5 bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none text-sm"
+                  className="flex-1 px-4 py-2 bg-transparent text-[#F3EFEA] placeholder:text-[#F3EFEA]/30 focus:outline-none text-sm font-bold"
                 />
-                <Button type="submit" variant="hero" className="rounded-xl px-5 hover:transform-none transition-none text-sm">Subscribe</Button>
+                <Button type="submit" size="sm" className="rounded-xl px-6 font-black uppercase tracking-widest bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">Sign Up</Button>
               </form>
             </div>
           </div>
 
           {/* Shop Column */}
           <div>
-            <h4 className="font-heading font-bold text-foreground mb-4">Shop</h4>
-            <ul className="space-y-2.5">
+            <h4 className="font-heading font-bold text-foreground text-xs uppercase tracking-widest mb-6 px-1">Shop</h4>
+            <ul className="space-y-3 px-1">
               {footerLinks.shop.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium">
                     {link.name}
                   </Link>
                 </li>
@@ -85,11 +82,11 @@ export const Footer = () => {
 
           {/* Quick Links Column */}
           <div>
-            <h4 className="font-heading font-bold text-foreground mb-4">Quick Links</h4>
-            <ul className="space-y-2.5">
+            <h4 className="font-heading font-bold text-foreground text-xs uppercase tracking-widest mb-6 px-1">Quick Links</h4>
+            <ul className="space-y-3 px-1">
               {footerLinks.quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                  <Link to={link.href} className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium">
                     {link.name}
                   </Link>
                 </li>
@@ -99,38 +96,38 @@ export const Footer = () => {
 
           {/* Contact Information Column */}
           <div>
-            <h4 className="font-heading font-bold text-foreground mb-4">Contact Info</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
+            <h4 className="font-heading font-bold text-foreground text-xs uppercase tracking-widest mb-6 px-1">Contact</h4>
+            <ul className="space-y-4 px-1">
+              <li className="flex items-start gap-3">
                 <Mail className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">info@eshopezee.com</span>
+                <span className="text-muted-foreground text-sm font-medium">hello@eshopezee.com</span>
               </li>
-              <li className="flex items-start gap-2">
+              <li className="flex items-start gap-3">
                 <Phone className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">+91 98765 43210</span>
+                <span className="text-muted-foreground text-sm font-medium">+91 98765 43210</span>
               </li>
-              <li className="flex items-start gap-2">
+              <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-muted-foreground text-sm">Mumbai, India</span>
+                <span className="text-muted-foreground text-sm font-medium leading-tight">Corporate Office, BKC,<br />Mumbai, India</span>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border/30 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Eshopezee. All rights reserved.
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[10px] font-black text-[#FAF8F4]/40 uppercase tracking-[0.2em]">
+            © {new Date().getFullYear()} Eshopezee. Premium Privilege.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="w-10 h-10 rounded-full glass flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all"
+                className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#FAF8F4]/60 hover:text-primary hover:border-primary/30 hover:bg-primary/5 transition-all duration-300"
               >
-                <social.icon className="w-5 h-5" />
+                <social.icon className="w-4 h-4" />
               </a>
             ))}
           </div>

@@ -59,12 +59,12 @@ export const TrendingProducts = () => {
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12"
         >
           <div>
-            <span className="text-secondary font-bold text-sm uppercase tracking-[0.2em] mb-4 block">
+            <span className="text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">
               Hot Right Now
             </span>
-            <h2 className="font-heading text-3xl md:text-5xl font-bold">
+            <h2 className="font-heading text-4xl md:text-6xl font-black tracking-tight">
               <span className="text-foreground">Trending</span>{" "}
-              <span className="gradient-text-secondary">Products</span>
+              <span className="gradient-text italic">Products</span>
             </h2>
           </div>
           <Button
@@ -98,7 +98,7 @@ export const TrendingProducts = () => {
               <motion.div variants={item} key={product.id}>
                 <div
                   onClick={() => navigate(`/product/${product.handle}`)}
-                  className="group glass rounded-3xl overflow-hidden hover-lift border border-transparent hover:border-primary/30 block cursor-pointer h-full flex flex-col"
+                  className="group bg-white rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/30 block cursor-pointer h-full flex flex-col shadow-sm hover:shadow-clay/20 transition-all duration-700"
                 >
                   {/* Image Container */}
                   <div className="relative aspect-square overflow-hidden bg-secondary/5">
@@ -133,7 +133,7 @@ export const TrendingProducts = () => {
                     <div className="absolute inset-x-4 bottom-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 hidden md:block">
                       <Button
                         variant="hero"
-                        className="w-full shadow-lg"
+                        className="w-full shadow-lg bg-[#2A2A2A] hover:bg-[#1A1A1A] border-none rounded-xl"
                         size="sm"
                         onClick={(e) => handleAddToCart(e, product)}
                       >

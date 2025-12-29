@@ -50,7 +50,7 @@ export const NewArrivals = () => {
     };
 
     return (
-        <section id="new-arrivals" className="py-24 relative bg-secondary/5">
+        <section id="new-arrivals" className="py-24 relative bg-[#FDFBF7]">
             <div className="container mx-auto px-6 sm:px-12 lg:px-20">
                 {/* Section Header */}
                 <motion.div
@@ -59,12 +59,12 @@ export const NewArrivals = () => {
                     viewport={{ once: true }}
                     className="text-center max-w-2xl mx-auto mb-16"
                 >
-                    <span className="text-secondary font-bold text-sm uppercase tracking-[0.2em] mb-4 block">
-                        Fresh From The Store
+                    <span className="text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">
+                        Fresh Heritage
                     </span>
-                    <h2 className="font-heading text-3xl md:text-5xl font-bold mb-6">
+                    <h2 className="font-heading text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight">
                         <span className="text-foreground">New</span>{" "}
-                        <span className="gradient-text">Arrivals</span>
+                        <span className="gradient-text italic">Arrivals</span>
                     </h2>
                     <p className="text-muted-foreground text-lg">
                         Check out the latest additions to our collection. Be the first to grab these trendy items.
@@ -91,7 +91,7 @@ export const NewArrivals = () => {
                             <motion.div variants={item} key={product.id}>
                                 <div
                                     onClick={() => navigate(`/product/${product.handle}`)}
-                                    className="group glass rounded-3xl overflow-hidden hover-lift border border-transparent hover:border-primary/30 block cursor-pointer h-full flex flex-col bg-background/50"
+                                    className="group bg-white rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/30 block cursor-pointer h-full flex flex-col shadow-sm hover:shadow-clay/20 transition-all duration-700"
                                 >
                                     {/* Image Container */}
                                     <div className="relative aspect-square overflow-hidden bg-white">
@@ -108,7 +108,7 @@ export const NewArrivals = () => {
                                         )}
 
                                         {/* New Tag */}
-                                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                                        <span className="absolute top-4 left-4 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
                                             New
                                         </span>
 
@@ -116,7 +116,7 @@ export const NewArrivals = () => {
                                         <div className="absolute inset-x-4 bottom-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 hidden md:block">
                                             <Button
                                                 variant="secondary"
-                                                className="w-full shadow-lg"
+                                                className="w-full shadow-lg bg-[#2A2A2A] hover:bg-[#1A1A1A] text-white border-none rounded-xl"
                                                 size="sm"
                                                 onClick={(e) => handleAddToCart(e, product)}
                                             >
@@ -135,7 +135,7 @@ export const NewArrivals = () => {
 
                                         {/* Price */}
                                         <div className="flex items-center justify-center gap-2 mt-auto">
-                                            <span className="font-heading text-lg font-bold text-primary">
+                                            <span className="font-heading text-xl font-black text-primary tracking-tighter">
                                                 ₹{product.price.toLocaleString('en-IN')}
                                             </span>
                                         </div>

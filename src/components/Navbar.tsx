@@ -59,19 +59,19 @@ export const Navbar = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border/30">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F4]/95 backdrop-blur-md border-b border-primary/10 shadow-sm shadow-primary/5 transition-all duration-300">
       <div className="container mx-auto">
-        <div className="flex items-center justify-between h-20 px-6 sm:px-12 lg:px-20 relative z-50">
+        <div className="flex items-center justify-between h-16 px-4 sm:px-8 lg:px-12 relative z-50">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group shrink-0 transition-transform active:scale-95">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center font-heading font-bold text-primary-foreground text-lg sm:text-xl group-hover:shadow-[0_10px_30px_hsla(175,100%,50%,0.3)] transition-all duration-500">
+          <Link to="/" className="flex items-center gap-2 group shrink-0 transition-transform active:scale-95">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-heading font-black text-white text-xl shadow-lg shadow-primary/20 group-hover:shadow-clay group-hover:scale-105 transition-all duration-500">
               E
             </div>
             <div className="flex flex-col -space-y-1">
-              <span className="font-heading font-bold text-lg sm:text-2xl tracking-tight text-white">
+              <span className="font-heading font-black text-xl tracking-tight text-foreground uppercase">
                 ESHOP<span className="text-primary">EZEE</span>
               </span>
-              <span className="text-[9px] font-bold text-muted-foreground/40 tracking-[0.3em] uppercase hidden sm:block">AI Powered Store</span>
+              <span className="text-[7.5px] font-black text-primary tracking-[0.3em] uppercase hidden sm:block">Privilege Edition</span>
             </div>
           </Link>
 
@@ -88,7 +88,7 @@ export const Navbar = () => {
                     Categories
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[600px] gap-3 p-4 md:w-[700px] md:grid-cols-3 lg:w-[850px] glass border-border/30 animate-in fade-in zoom-in-95 duration-200">
+                    <ul className="grid w-[600px] gap-3 p-4 md:w-[700px] md:grid-cols-3 lg:w-[850px] bg-white border border-border rounded-xl shadow-xl animate-in fade-in zoom-in-95 duration-200">
                       {collections.length > 0 ? (
                         collections.map((collection) => (
                           <li key={collection.id}>
@@ -96,12 +96,12 @@ export const Navbar = () => {
                               <Link
                                 to={`/collection/${collection.handle}`}
                                 className={cn(
-                                  "flex items-start gap-3 select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary h-full",
-                                  isActive(`/collection/${collection.handle}`) && "bg-primary/10 text-primary border-l-2 border-primary"
+                                  "flex items-start gap-3 select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-colors hover:bg-muted focus:bg-muted group/item h-full",
+                                  isActive(`/collection/${collection.handle}`) && "bg-muted font-medium border-l-2 border-primary"
                                 )}
                               >
                                 {collection.image?.url ? (
-                                  <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 border border-primary/20">
+                                  <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0 border border-border group-hover/item:border-primary/30 transition-colors">
                                     <img
                                       src={collection.image.url}
                                       alt={collection.image.altText || collection.title}
@@ -109,14 +109,14 @@ export const Navbar = () => {
                                     />
                                   </div>
                                 ) : (
-                                  <div className="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center flex-shrink-0 border border-primary/20">
-                                    <span className="text-primary font-bold text-xs">{collection.title.charAt(0)}</span>
+                                  <div className="w-10 h-10 rounded-md bg-muted flex items-center justify-center flex-shrink-0 border border-border">
+                                    <span className="text-muted-foreground font-bold text-xs">{collection.title.charAt(0)}</span>
                                   </div>
                                 )}
                                 <div className="flex flex-col gap-1">
-                                  <div className="text-sm font-semibold leading-none">{collection.title}</div>
+                                  <div className="text-sm font-semibold leading-none group-hover/item:text-primary transition-colors">{collection.title}</div>
                                   <p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground">
-                                    Collections for {collection.title}
+                                    Explore {collection.title}
                                   </p>
                                 </div>
                               </Link>
@@ -222,11 +222,12 @@ export const Navbar = () => {
 
         {/* Mobile Nav */}
         <div className={cn(
-          "lg:hidden fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl transition-all duration-300 ease-in-out pt-24 pb-8 px-6 h-[100dvh] overflow-hidden flex flex-col",
-          isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+          "lg:hidden fixed inset-0 z-40 bg-[#FAF8F4] transition-all duration-500 ease-in-out pt-24 pb-8 px-6 h-[100dvh] overflow-hidden flex flex-col",
+          isOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible"
         )}>
-          <div className="flex flex-col h-full">
-            <div className="space-y-4 flex-1">
+          <div className="flex flex-col h-full space-y-8 relative">
+            <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -ml-32 -mt-32" />
+            <div className="space-y-6 flex-1 relative z-10">
               <div className="flex items-center justify-between px-2">
                 <p className="text-xs font-bold text-primary uppercase tracking-[0.2em]">Shop by Category</p>
                 <div className="h-[2px] w-12 bg-primary/20 rounded-full" />
@@ -277,12 +278,12 @@ export const Navbar = () => {
               {user ? (
                 <div className="p-4 rounded-3xl bg-white/[0.03] border border-white/10 space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg border border-primary/20 capitalize shadow-[0_0_20px_hsla(175,100%,50%,0.1)]">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-xl border border-primary/20 capitalize shadow-clay">
                       {user.firstName[0]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold text-white truncate">{user.firstName} {user.lastName}</p>
-                      <p className="text-[10px] text-muted-foreground truncate font-medium">{user.email}</p>
+                      <p className="text-sm font-black text-foreground truncate">{user.firstName} {user.lastName}</p>
+                      <p className="text-[10px] text-muted-foreground truncate font-bold uppercase tracking-widest">{user.email}</p>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-3">

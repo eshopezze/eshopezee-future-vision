@@ -49,39 +49,57 @@ const Index = () => {
   }, [searchParams, setIsOpen]);
 
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden pt-20">
+    <main className="min-h-screen bg-background overflow-x-hidden pt-16">
       <Navbar />
 
-      <Suspense fallback={<SectionLoader />}>
-        <HeroSection />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <Marquee />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <CategoryGridCards />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <ProductScroller
-          title="Trending Deals"
-          subtitle="Most popular items right now"
-          products={trendingProducts}
-          loading={loading}
-          collectionLink="/collection/trending-product"
-        />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <ProductScroller
-          title="New Tech Arrivals"
-          subtitle="Latest gadgets in stock"
-          products={newArrivals}
-          loading={loading}
-          collectionLink="/collection/electronics"
-        />
-      </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <AIFeaturesSection />
-      </Suspense>
+      <section className="bg-white">
+        <Suspense fallback={<SectionLoader />}>
+          <HeroSection />
+        </Suspense>
+      </section>
+
+      <section className="bg-secondary/30 border-y border-border/50">
+        <Suspense fallback={<SectionLoader />}>
+          <Marquee />
+        </Suspense>
+      </section>
+
+      <section className="bg-background py-16">
+        <Suspense fallback={<SectionLoader />}>
+          <CategoryGridCards />
+        </Suspense>
+      </section>
+
+      <section className="bg-white py-16 border-y border-border/40 shadow-inner">
+        <Suspense fallback={<SectionLoader />}>
+          <ProductScroller
+            title="Trending Deals"
+            subtitle="Most popular items right now"
+            products={trendingProducts}
+            loading={loading}
+            collectionLink="/collection/trending-product"
+          />
+        </Suspense>
+      </section>
+
+      <section className="bg-background py-16">
+        <Suspense fallback={<SectionLoader />}>
+          <ProductScroller
+            title="New Tech Arrivals"
+            subtitle="Latest gadgets in stock"
+            products={newArrivals}
+            loading={loading}
+            collectionLink="/collection/electronics"
+          />
+        </Suspense>
+      </section>
+
+      <section className="bg-secondary/20 py-16 border-t border-border/50">
+        <Suspense fallback={<SectionLoader />}>
+          <AIFeaturesSection />
+        </Suspense>
+      </section>
+
       <Footer />
     </main>
   );

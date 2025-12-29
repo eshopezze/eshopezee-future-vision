@@ -41,19 +41,19 @@ const features = [
 
 export const AIFeaturesSection = () => {
   return (
-    <section id="ai" className="py-24 relative overflow-hidden">
+    <section id="ai" className="py-32 relative overflow-hidden bg-[#FAF8F4]">
       {/* Background Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 rounded-full blur-[150px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] -z-10" />
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-white font-medium text-sm uppercase tracking-widest mb-4 block">
-            AI-Powered Features
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <span className="text-primary font-black text-[10px] uppercase tracking-[0.4em] mb-4 bg-primary/10 px-5 py-2.5 rounded-full inline-block border border-primary/10">
+            Artisanal Intelligence
           </span>
-          <h2 className="font-heading text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="font-heading text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight">
             <span className="text-foreground">Shopping Made</span>{" "}
-            <span className="gradient-text">Intelligent</span>
+            <span className="bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent italic">Intelligent</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Harness the power of artificial intelligence to enhance your shopping experience
@@ -66,20 +66,21 @@ export const AIFeaturesSection = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="group glass rounded-2xl p-8 hover-lift border border-transparent hover:border-primary/30"
+              className="group bg-white rounded-[2rem] p-10 hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/20 transition-all duration-500 relative overflow-hidden"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />
               <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${feature.color === "primary"
-                  ? "bg-primary/20 text-primary"
+                className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-10 ${feature.color === "primary"
+                  ? "bg-primary/10 text-primary border border-primary/20 shadow-clay"
                   : feature.color === "secondary"
-                    ? "bg-secondary/20 text-secondary"
-                    : "bg-accent/20 text-accent"
-                  } group-hover:scale-110 transition-transform duration-300`}
+                    ? "bg-secondary/20 text-secondary border border-secondary/20"
+                    : "bg-accent/10 text-accent border border-accent/10"
+                  } group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 relative z-10`}
               >
-                <feature.icon className="w-7 h-7" />
+                <feature.icon className="w-8 h-8" />
               </div>
-              <h3 className="font-heading text-xl font-bold text-foreground mb-3">
+              <h3 className="font-heading text-2xl font-black text-foreground mb-3 tracking-tighter">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -89,6 +90,6 @@ export const AIFeaturesSection = () => {
           ))}
         </div>
       </div>
-    </section>
+    </section >
   );
 };

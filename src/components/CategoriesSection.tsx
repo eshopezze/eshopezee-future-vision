@@ -16,14 +16,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 const colorGradients = [
-  "from-primary to-[hsl(200,100%,50%)]",
-  "from-secondary to-[hsl(340,100%,55%)]",
-  "from-accent to-[hsl(320,100%,65%)]",
-  "from-[hsl(120,70%,45%)] to-primary",
-  "from-[hsl(45,100%,50%)] to-[hsl(25,100%,55%)]",
   "from-primary to-accent",
-  "from-secondary to-accent",
-  "from-[hsl(340,100%,55%)] to-secondary",
+  "from-accent to-primary",
+  "from-primary/80 to-accent/80",
+  "from-primary/60 to-accent/60",
+  "from-primary/40 to-accent/40",
+  "from-primary/20 to-accent/20",
 ];
 
 const getIconForCollection = (title: string) => {
@@ -94,7 +92,7 @@ export const CategoriesSection = () => {
           </span>
           <h2 className="font-heading text-3xl md:text-5xl font-bold mb-6">
             <span className="text-foreground">Explore Our</span>{" "}
-            <span className="gradient-text">Collections</span>
+            <span className="gradient-text">Catalogue</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Discover products across various categories tailored to your lifestyle and preferences.
@@ -133,13 +131,13 @@ export const CategoriesSection = () => {
                   key={collection.id}
                   variants={item}
                   onClick={() => navigate(`/collection/${collection.handle}`)}
-                  whileHover={{ y: -5, scale: 1.02 }}
-                  className="group glass rounded-3xl p-6 text-center border border-white/5 hover:border-primary/30 cursor-pointer transition-colors relative overflow-hidden"
+                  whileHover={{ y: -8, scale: 1.05 }}
+                  className="group bg-white rounded-[2.5rem] p-8 text-center border border-border/50 hover:border-primary/30 cursor-pointer transition-all duration-500 relative overflow-hidden shadow-sm hover:shadow-primary/10"
                 >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${colorGradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${colorGradient} opacity-0 group-hover:opacity-5 transition-opacity duration-700`} />
 
                   {collection.image?.url ? (
-                    <div className="w-20 h-20 mx-auto rounded-2xl overflow-hidden mb-6 shadow-lg rotate-0 group-hover:rotate-3 transition-transform duration-300">
+                    <div className="w-24 h-24 mx-auto rounded-[2rem] overflow-hidden mb-8 shadow-sm group-hover:shadow-primary/20 rotate-0 group-hover:rotate-3 transition-all duration-500">
                       <img
                         src={collection.image.url}
                         alt={collection.title}
@@ -148,17 +146,17 @@ export const CategoriesSection = () => {
                     </div>
                   ) : (
                     <div
-                      className={`w-20 h-20 mx-auto rounded-2xl bg-gradient-to-br ${colorGradient} flex items-center justify-center mb-6 shadow-lg shadow-primary/20 group-hover:rotate-6 transition-transform duration-300`}
+                      className={`w-24 h-24 mx-auto rounded-[2rem] bg-gradient-to-br ${colorGradient} flex items-center justify-center mb-8 shadow-sm group-hover:shadow-primary/20 group-hover:rotate-6 transition-all duration-500`}
                     >
-                      <IconComponent className="w-10 h-10 text-white" />
+                      <IconComponent className="w-12 h-12 text-white" />
                     </div>
                   )}
 
-                  <h3 className="font-heading font-bold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
+                  <h3 className="font-heading font-black text-xl text-foreground mb-3 group-hover:text-primary transition-colors tracking-tighter">
                     {collection.title}
                   </h3>
-                  <div className="inline-block px-3 py-1 rounded-full bg-white/5 text-[10px] font-medium text-muted-foreground uppercase tracking-wider group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                    Explore Collection
+                  <div className="inline-block px-4 py-2 rounded-full bg-primary/5 text-[10px] font-black text-primary uppercase tracking-[0.2em] group-hover:bg-primary/20 transition-all">
+                    Discover More
                   </div>
                 </motion.div>
               );

@@ -32,28 +32,28 @@ const CategoryGridCard = ({ title, collectionHandle }: GridCardProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white/[0.02] p-4 rounded-2xl border border-white/5 h-full flex flex-col hover:border-white/10 transition-colors duration-500 group relative overflow-hidden"
+            className="bg-white p-5 rounded-xl border border-border shadow-sm flex flex-col hover:shadow-lg hover:border-primary/20 transition-all duration-300 group relative overflow-hidden h-full"
         >
-            <h3 className="font-heading font-semibold text-sm mb-4 text-foreground/90 flex items-center gap-2">
-                <span className="w-1 h-3 bg-primary/30 rounded-full" />
+            <h3 className="font-heading font-bold text-base mb-5 text-foreground flex items-center gap-2">
+                <span className="w-1.5 h-4 bg-primary rounded-full" />
                 {title}
             </h3>
 
-            <div className="grid grid-cols-2 gap-3 flex-grow pb-4">
+            <div className="grid grid-cols-2 gap-4 flex-grow pb-5">
                 {products.map((product) => (
                     <Link
                         key={product.id}
                         to={`/product/${product.handle}`}
                         className="group/item block"
                     >
-                        <div className="aspect-square overflow-hidden bg-white/[0.03] mb-2 rounded-lg border border-white/5 group-hover/item:border-primary/20 transition-all duration-500">
+                        <div className="aspect-square overflow-hidden bg-gray-50 mb-2.5 rounded-lg border border-border group-hover/item:border-primary/20 transition-all duration-300 shadow-sm">
                             <img
                                 src={product.image || ""}
                                 alt={product.name}
-                                className="w-full h-full object-cover group-hover/item:scale-105 transition-transform duration-700 ease-out"
+                                className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500 ease-in-out"
                             />
                         </div>
-                        <p className="text-[9px] font-medium text-muted-foreground/50 truncate group-hover/item:text-primary transition-colors duration-300 uppercase tracking-wide">
+                        <p className="text-[10px] font-bold text-muted-foreground/80 truncate group-hover/item:text-primary transition-colors duration-200 uppercase tracking-tighter">
                             {product.name}
                         </p>
                     </Link>
@@ -62,10 +62,10 @@ const CategoryGridCard = ({ title, collectionHandle }: GridCardProps) => {
 
             <Link
                 to={`/collection/${collectionHandle}`}
-                className="inline-flex items-center gap-1.5 text-[10px] font-semibold text-primary/70 hover:text-primary transition-all duration-300 group/link"
+                className="mt-auto pt-3 border-t border-border flex items-center justify-between group/link hover:text-primary transition-colors duration-200"
             >
-                <span className="uppercase tracking-[0.15em]">Explore</span>
-                <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground group-hover/link:text-primary transition-colors">See all</span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground group-hover/link:text-primary group-hover/link:translate-x-1 transition-all duration-300" />
             </Link>
         </motion.div>
     );

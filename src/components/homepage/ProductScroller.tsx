@@ -63,65 +63,77 @@ const ProductScroller = ({ title, subtitle, products, loading, collectionLink }:
 
                 <div
                     ref={scrollRef}
-                    className="flex gap-4 overflow-x-auto scrollbar-hide pb-8 snap-x snap-mandatory px-2"
+                    className="flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-8 snap-x snap-mandatory px-2"
                 >
                     {loading
                         ? Array.from({ length: 6 }).map((_, idx) => (
-                            <div key={idx} className="min-w-[180px] md:min-w-[220px] aspect-[3/4] bg-white/[0.02] animate-pulse rounded-2xl" />
+                            <div key={idx} className="min-w-[180px] md:min-w-[260px] aspect-[3/4.2] bg-muted animate-pulse rounded-xl" />
                         ))
                         : products.map((product) => (
                             <motion.div
                                 key={product.id}
-                                whileHover={{ y: -6 }}
-                                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-                                className="min-w-[180px] md:min-w-[220px] bg-white/[0.02] border border-white/5 rounded-2xl p-3 hover:border-white/10 transition-all duration-500 snap-start flex flex-col group relative overflow-hidden"
+                                whileHover={{ y: -4 }}
+                                transition={{ duration: 0.3 }}
+                                className="min-w-[200px] md:min-w-[260px] bg-white border border-border rounded-xl p-3 hover:shadow-xl hover:border-primary/20 transition-all duration-300 snap-start flex flex-col group relative overflow-hidden shadow-sm"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
                                 <Link to={`/product/${product.handle}`} className="block flex-grow">
-                                    <div className="aspect-square overflow-hidden mb-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-primary/10 transition-all duration-700 relative shadow-inner">
+                                    <div className="aspect-[4/5] overflow-hidden mb-4 rounded-lg bg-gray-50 border border-border group-hover:border-primary/20 transition-all relative">
                                         <img
                                             src={product.image || ""}
                                             alt={product.name}
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                                         />
+                                        {/* Dynamic Badges */}
+                                        <div className="absolute top-2 left-2 flex flex-col gap-1.5 z-20">
+                                            {product.originalPrice && (
+                                                <div className="bg-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg uppercase tracking-wider">
+                                                    Sale
+                                                </div>
+                                            )}
+                                            {/* Mocking a "New" badge for visual interest */}
+                                            {product.id.length % 2 === 0 && (
+                                                <div className="bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg uppercase tracking-wider">
+                                                    New
+                                                </div>
+                                            )}
+                                        </div>
                                         {product.originalPrice && (
-                                            <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-md border border-white/10 text-primary text-[8px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase tracking-wider">
-                                                {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% Off
+                                            <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-red-600 text-[10px] font-black px-2 py-1 rounded border border-red-100 z-20 shadow-sm">
+                                                -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
                                             </div>
                                         )}
                                     </div>
-                                    <h3 className="text-xs md:text-sm font-semibold text-foreground/90 line-clamp-2 mb-2 px-1 group-hover:text-primary transition-colors duration-300 h-9 leading-tight">
+                                    <h3 className="text-sm font-bold text-foreground line-clamp-2 mb-2 group-hover:text-primary transition-colors duration-200 min-h-[2.5rem] leading-tight px-1">
                                         {product.name}
                                     </h3>
-                                    <div className="flex items-center gap-2 mb-3 px-1">
-                                        <span className="text-foreground font-bold text-base">₹{product.price.toLocaleString("en-IN")}</span>
+                                    <div className="flex items-center gap-2 mb-4 px-1">
+                                        <span className="text-primary font-black text-lg">₹{product.price.toLocaleString("en-IN")}</span>
                                         {product.originalPrice && (
-                                            <span className="text-[10px] text-muted-foreground/30 line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>
+                                            <span className="text-xs text-muted-foreground line-through opacity-60 font-medium">₹{product.originalPrice.toLocaleString("en-IN")}</span>
                                         )}
                                     </div>
                                 </Link>
                                 <Button
                                     size="sm"
-                                    className="w-full h-9 font-bold rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_15px_hsla(175,100%,50%,0.3)] transition-all duration-300 flex items-center justify-center gap-2 group/btn z-20 relative"
+                                    className="w-full h-10 font-black rounded-lg bg-primary hover:bg-primary/90 text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 flex items-center justify-center gap-2 z-20 relative uppercase text-[10px] tracking-widest"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         addItem(product.variantId, 1);
                                     }}
                                 >
-                                    <ShoppingCart className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:scale-110" />
-                                    <span className="uppercase tracking-[0.15em] text-[9px]">Add</span>
+                                    <ShoppingCart className="w-3.5 h-3.5" />
+                                    Add to Cart
                                 </Button>
                             </motion.div>
                         ))}
                     <Link
                         to={collectionLink || "/products"}
-                        className="min-w-[180px] md:min-w-[220px] flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-2xl hover:border-primary/20 hover:bg-primary/[0.02] transition-all duration-500 group/all"
+                        className="min-w-[200px] md:min-w-[260px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl hover:border-primary/40 hover:bg-primary/[0.02] transition-all duration-300 group/all bg-white"
                     >
-                        <div className="w-10 h-10 rounded-full bg-primary/5 flex items-center justify-center mb-3 group-hover/all:scale-110 transition-transform">
-                            <ArrowRight className="w-5 h-5 text-primary/50 group-hover/all:text-primary transition-colors" />
+                        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover/all:scale-110 transition-all">
+                            <ArrowRight className="w-6 h-6 text-primary" />
                         </div>
-                        <span className="text-[10px] font-semibold text-muted-foreground/40 uppercase tracking-[0.2em] group-hover/all:text-primary transition-colors">See All</span>
+                        <span className="text-xs font-bold text-primary uppercase tracking-widest group-hover/all:translate-x-1 transition-transform">See All Collections</span>
                     </Link>
                 </div>
             </div>

@@ -20,13 +20,13 @@ export const CartSidebar = () => {
       />
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-background border-l border-border z-50 animate-slide-in-right flex flex-col">
+      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-[#FAF8F4] border-l border-primary/10 z-50 animate-slide-in-right flex flex-col shadow-clay">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div className="flex items-center gap-3">
             <ShoppingBag className="w-6 h-6 text-primary" />
-            <h2 className="font-heading text-xl font-bold text-foreground">Your Cart</h2>
-            <span className="px-2 py-0.5 bg-primary/20 text-primary text-sm font-medium rounded-full">
+            <h2 className="font-heading text-2xl font-black text-foreground tracking-tighter italic">Collection</h2>
+            <span className="px-2.5 py-0.5 bg-primary/10 text-primary text-[10px] font-black rounded-full border border-primary/20">
               {totalItems}
             </span>
           </div>
@@ -56,7 +56,7 @@ export const CartSidebar = () => {
               {items.map((item) => (
                 <div
                   key={item.lineId}
-                  className="flex gap-4 p-4 glass rounded-xl animate-scale-in"
+                  className="flex gap-4 p-5 bg-white border border-border/50 rounded-[2rem] shadow-sm hover:shadow-clay/10 transition-all duration-500"
                 >
                   <button
                     onClick={() => {
@@ -140,7 +140,7 @@ export const CartSidebar = () => {
             <Button
               variant="hero"
               size="lg"
-              className="w-full"
+              className="w-full h-16 rounded-2xl bg-[#2A2A2A] hover:bg-[#1A1A1A] text-white font-black uppercase tracking-[0.2em] shadow-xl shadow-black/10 hover:shadow-black/20 border-b-4 border-black/30 active:border-b-0 active:translate-y-1 transition-all"
               disabled={loading || !checkoutUrl}
               onClick={() => {
                 if (!user) {
@@ -151,7 +151,7 @@ export const CartSidebar = () => {
                 if (checkoutUrl) window.location.href = checkoutUrl;
               }}
             >
-              {loading ? "Processsing..." : "Proceed to Checkout"}
+              {loading ? "Synchronizing..." : "Initiate Checkout"}
             </Button>
             <button
               onClick={clearCart}

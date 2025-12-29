@@ -125,20 +125,20 @@ const Profile = () => {
         <div className="min-h-screen bg-background flex flex-col">
             <Navbar />
 
-            <main className="flex-1 pt-32 pb-20 px-4 sm:px-6 lg:px-20 bg-gradient-to-b from-background to-secondary/5">
+            <main className="flex-1 pt-32 pb-20 px-4 sm:px-6 lg:px-20 bg-gradient-to-b from-background to-primary/5">
                 <div className="container mx-auto max-w-6xl">
                     <div className="flex flex-col lg:flex-row gap-12">
 
                         {/* Sidebar Navigation */}
                         <aside className="lg:w-1/4 space-y-8">
                             <div className="glass p-6 rounded-3xl space-y-6">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-16 h-16 rounded-2xl bg-primary/20 text-primary flex items-center justify-center font-black text-2xl border-2 border-primary/20 capitalize">
+                                <div className="flex items-center gap-5 mb-8">
+                                    <div className="w-20 h-20 rounded-[1.75rem] bg-primary/10 text-primary flex items-center justify-center font-black text-3xl border border-primary/20 shadow-sm capitalize">
                                         {user.firstName[0]}
                                     </div>
                                     <div className="min-w-0">
-                                        <h2 className="text-lg font-black truncate">{user.firstName} {user.lastName}</h2>
-                                        <p className="text-sm text-muted-foreground font-medium truncate">{user.email}</p>
+                                        <h2 className="text-xl font-black text-foreground truncate tracking-tighter">{user.firstName} {user.lastName}</h2>
+                                        <p className="text-[10px] font-black text-muted-foreground/40 uppercase tracking-[0.2em] truncate">Privilege Member</p>
                                     </div>
                                 </div>
 
@@ -148,10 +148,10 @@ const Profile = () => {
                                             key={tab.id}
                                             onClick={() => setActiveTab(tab.id)}
                                             className={cn(
-                                                "flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-300",
+                                                "flex items-center gap-3 px-5 py-4 rounded-2xl text-sm font-black transition-all duration-300",
                                                 activeTab === tab.id
-                                                    ? "bg-primary text-primary-foreground shadow-neon scale-[1.02]"
-                                                    : "text-muted-foreground hover:bg-primary/10 hover:text-primary"
+                                                    ? "bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]"
+                                                    : "text-muted-foreground/70 hover:bg-primary/5 hover:text-primary"
                                             )}
                                         >
                                             <tab.icon className="w-4 h-4" />
@@ -195,17 +195,20 @@ const Profile = () => {
                                             </div>
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                                <div className="glass p-8 rounded-3xl space-y-2 border-l-4 border-l-primary">
-                                                    <p className="text-muted-foreground text-xs font-black uppercase tracking-widest">Total Orders</p>
-                                                    <p className="text-4xl font-black">{orders.length}</p>
+                                                <div className="bg-white p-8 rounded-[2rem] space-y-3 border border-border/50 shadow-sm relative overflow-hidden group">
+                                                    <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-2xl -mr-12 -mt-12" />
+                                                    <p className="text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em]">Total Orders</p>
+                                                    <p className="text-5xl font-black text-primary tracking-tighter">{orders.length}</p>
                                                 </div>
-                                                <div className="glass p-8 rounded-3xl space-y-2 border-l-4 border-l-secondary">
-                                                    <p className="text-muted-foreground text-xs font-black uppercase tracking-widest">Saved Addresses</p>
-                                                    <p className="text-4xl font-black">{addresses.length}</p>
+                                                <div className="bg-white p-8 rounded-[2rem] space-y-3 border border-border/50 shadow-sm relative overflow-hidden group">
+                                                    <div className="absolute top-0 right-0 w-24 h-24 bg-secondary/20 rounded-full blur-2xl -mr-12 -mt-12" />
+                                                    <p className="text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em]">Saved Addresses</p>
+                                                    <p className="text-5xl font-black text-secondary tracking-tighter">{addresses.length}</p>
                                                 </div>
-                                                <div className="glass p-8 rounded-3xl space-y-2 border-l-4 border-l-accent">
-                                                    <p className="text-muted-foreground text-xs font-black uppercase tracking-widest">Account Age</p>
-                                                    <p className="text-4xl font-black italic text-muted-foreground opacity-30">—</p>
+                                                <div className="bg-white p-8 rounded-[2rem] space-y-3 border border-border/50 shadow-sm relative overflow-hidden group">
+                                                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/10 rounded-full blur-2xl -mr-12 -mt-12" />
+                                                    <p className="text-muted-foreground text-[10px] font-black uppercase tracking-[0.2em]">Membership Tier</p>
+                                                    <p className="text-2xl font-black text-accent tracking-tighter flex items-center gap-2">Privilege Elite <div className="w-2 h-2 rounded-full bg-accent animate-pulse" /></p>
                                                 </div>
                                             </div>
 
@@ -238,8 +241,8 @@ const Profile = () => {
                                                         const isExpanded = expandedOrderId === order.id;
                                                         return (
                                                             <div key={order.id} className={cn(
-                                                                "glass rounded-3xl border transition-all duration-500 overflow-hidden",
-                                                                isExpanded ? "border-primary/50 shadow-neon-soft bg-primary/5" : "border-transparent hover:border-primary/30"
+                                                                "bg-white rounded-[2rem] border transition-all duration-500 overflow-hidden",
+                                                                isExpanded ? "border-primary/30 shadow-xl shadow-primary/5 bg-gradient-to-br from-primary/[0.02] to-transparent" : "border-border/50 hover:border-primary/20 shadow-sm"
                                                             )}>
                                                                 {/* Accordion Header */}
                                                                 <button
@@ -306,18 +309,18 @@ const Profile = () => {
                                                                     </div>
                                                                     <div className="flex flex-wrap items-center gap-4 md:gap-8 w-full md:w-auto justify-between md:justify-end">
                                                                         <div className="text-right">
-                                                                            <p className="text-xs font-black uppercase tracking-widest text-muted-foreground opacity-50">Total Paid</p>
-                                                                            <p className="font-bold">{order.totalPrice.amount} {order.totalPrice.currencyCode}</p>
+                                                                            <p className="text-[10px] font-black uppercase tracking-[0.15em] text-muted-foreground/50">Total Paid</p>
+                                                                            <p className="font-black text-foreground text-base tracking-tight">{order.totalPrice.amount} {order.totalPrice.currencyCode}</p>
                                                                         </div>
                                                                         <span className={cn(
-                                                                            "px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest",
-                                                                            order.fulfillmentStatus === 'FULFILLED' ? "bg-green-500/20 text-green-500" : "bg-orange-500/20 text-orange-500"
+                                                                            "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest",
+                                                                            order.fulfillmentStatus === 'FULFILLED' ? "bg-primary/10 text-primary border border-primary/10" : "bg-accent/10 text-accent border border-accent/10"
                                                                         )}>
                                                                             {order.fulfillmentStatus.replace('_', ' ')}
                                                                         </span>
                                                                         <div className={cn(
-                                                                            "p-2 rounded-full bg-primary/10 text-primary transition-transform duration-500",
-                                                                            isExpanded && "rotate-90 scale-110 bg-primary text-primary-foreground"
+                                                                            "p-2.5 rounded-xl transition-all duration-500",
+                                                                            isExpanded ? "bg-primary text-white rotate-90 shadow-lg shadow-primary/30 scale-110" : "bg-primary/5 text-primary border border-primary/10"
                                                                         )}>
                                                                             <ChevronRight className="w-4 h-4" />
                                                                         </div>

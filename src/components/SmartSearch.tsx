@@ -109,9 +109,9 @@ export const SmartSearch = () => {
           />
 
           {/* Search Panel */}
-          <div className="relative w-full max-w-2xl bg-background border border-primary/20 shadow-[0_0_80px_rgba(0,0,0,0.5),0_0_40px_hsla(175,100%,50%,0.1)] rounded-3xl animate-in zoom-in-95 duration-200 overflow-hidden">
+          <div className="relative w-full max-w-2xl bg-[#FAF8F4] border border-primary/10 shadow-clay rounded-[3rem] animate-in zoom-in-95 duration-200 overflow-hidden">
             {/* Search Input Area */}
-            <div className="p-6 border-b border-white/5">
+            <div className="p-8 border-b border-border/30 bg-gradient-to-b from-primary/[0.02] to-transparent">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                   {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Search className="w-5 h-5" />}
@@ -137,7 +137,7 @@ export const SmartSearch = () => {
             </div>
 
             {/* Results Display */}
-            <div className="max-h-[65vh] overflow-y-auto custom-scrollbar bg-black/20">
+            <div className="max-h-[65vh] overflow-y-auto custom-scrollbar bg-white">
               {result ? (
                 <div className="p-2 space-y-2">
                   {/* Collections Section - Visual Cards */}
@@ -152,9 +152,9 @@ export const SmartSearch = () => {
                           <button
                             key={collection.id}
                             onClick={() => handleLinkClick(`/collection/${collection.handle}`)}
-                            className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/40 hover:bg-primary/5 transition-all text-left group"
+                            className="flex items-center gap-4 p-4 rounded-2xl bg-secondary/5 border border-border/30 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group"
                           >
-                            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 shrink-0 border border-white/10 group-hover:border-primary/20">
+                            <div className="w-14 h-14 rounded-[1.25rem] overflow-hidden bg-white shrink-0 border border-border/50 group-hover:border-primary/20 shadow-sm transition-colors">
                               {collection.image?.url ? (
                                 <img src={collection.image.url} alt={collection.title} className="w-full h-full object-cover" />
                               ) : (
@@ -176,7 +176,7 @@ export const SmartSearch = () => {
 
                   {/* Products Section - Detailed Rows at the bottom */}
                   {result.products.length > 0 ? (
-                    <div className="p-4 bg-white/[0.02] border-t border-white/5">
+                    <div className="p-4 bg-secondary/[0.02] border-t border-border/30">
                       <div className="flex items-center gap-2 mb-4 px-2">
                         <Package className="w-4 h-4 text-secondary" />
                         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Product Results</h3>
@@ -186,10 +186,10 @@ export const SmartSearch = () => {
                           <button
                             key={product.id}
                             onClick={() => handleLinkClick(`/product/${product.handle}`)}
-                            className="w-full flex items-center justify-between p-3 rounded-2xl hover:bg-white/5 transition-all group border border-transparent hover:border-white/5"
+                            className="w-full flex items-center justify-between p-4 rounded-2xl hover:bg-primary/[0.03] transition-all group border border-transparent hover:border-primary/10"
                           >
                             <div className="flex items-center gap-4 min-w-0">
-                              <div className="w-14 h-14 rounded-xl overflow-hidden bg-white/10 shrink-0 border border-white/10 group-hover:border-primary/20">
+                              <div className="w-16 h-16 rounded-xl overflow-hidden bg-white shrink-0 border border-border/50 group-hover:border-primary/20 shadow-sm transition-colors">
                                 {product.image ? (
                                   <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                                 ) : (
@@ -229,12 +229,12 @@ export const SmartSearch = () => {
                 </div>
               ) : !isLoading && query.length === 0 && (
                 <div className="p-12 text-center">
-                  <Sparkles className="w-10 h-10 text-primary/40 mx-auto mb-4" />
-                  <h4 className="font-heading text-lg font-bold mb-2">Smart AI Search</h4>
-                  <p className="text-muted-foreground text-sm max-w-xs mx-auto mb-6">
-                    Enter a keyword to search for products and collections across the marketplace.
+                  <Sparkles className="w-12 h-12 text-primary/40 mx-auto mb-6" />
+                  <h4 className="font-heading text-2xl font-black mb-3 tracking-tighter">Artisanal Search</h4>
+                  <p className="text-muted-foreground text-sm max-w-xs mx-auto mb-10 leading-relaxed">
+                    Discover the collection using our neural search engine.
                   </p>
-                  <div className="flex flex-wrap justify-center gap-2">
+                  <div className="flex flex-wrap justify-center gap-3">
                     {["Trends", "Summer", "Sale", "Tech"].map((tag) => (
                       <button
                         key={tag}
@@ -251,14 +251,14 @@ export const SmartSearch = () => {
               {/* Loading State Overlay */}
               {isLoading && !result && (
                 <div className="p-20 text-center">
-                  <Loader2 className="w-10 h-10 text-primary animate-spin mx-auto mb-4" />
-                  <p className="font-heading text-sm animate-pulse tracking-widest text-primary font-bold">ANALYZING STORE DATA...</p>
+                  <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-6" />
+                  <p className="font-heading text-xs animate-pulse tracking-[0.4em] text-primary font-black uppercase">Synchronizing Heritage Archive...</p>
                 </div>
               )}
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 px-6 bg-black/40 border-t border-white/5 flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
+            <div className="p-5 px-8 bg-secondary/5 border-t border-border/30 flex items-center justify-between text-[11px] font-black uppercase tracking-[0.25em] text-muted-foreground/40">
               <div className="flex items-center gap-4">
                 <span className="flex items-center gap-1.5"><kbd className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-[9px]">ESC</kbd> to close</span>
               </div>

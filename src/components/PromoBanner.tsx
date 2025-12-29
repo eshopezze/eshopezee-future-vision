@@ -9,28 +9,28 @@ export const PromoBanner = () => {
           {/* Inner Content */}
           <div className="relative bg-card p-8 md:p-16 overflow-hidden">
             {/* Background Glow */}
-            <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-primary/20 rounded-full blur-[100px]" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[250px] bg-secondary/20 rounded-full blur-[80px]" />
-            
+            <div className="absolute top-0 right-0 w-[500px] h-[300px] bg-primary/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[250px] bg-accent/10 rounded-full blur-[80px]" />
+
             <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
               <div className="text-center lg:text-left max-w-xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary text-sm font-medium mb-4">
-                  <Sparkles className="w-4 h-4" />
-                  Limited Time Offer
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.3em] mb-6 border border-primary/20">
+                  <Sparkles className="w-3 h-3" />
+                  Heritage Privilege
                 </div>
-                <h2 className="font-heading text-3xl md:text-5xl font-bold text-foreground mb-4">
-                  Get <span className="gradient-text">30% OFF</span> on Your First Order
+                <h2 className="font-heading text-4xl md:text-6xl font-black text-foreground mb-6 tracking-tighter leading-[0.9]">
+                  Claim Your <span className="gradient-text italic">Privilege</span> Benefit
                 </h2>
-                <p className="text-muted-foreground text-lg mb-6">
-                  Sign up today and receive an exclusive discount code. Plus, get free shipping on orders over ₹999!
+                <p className="text-muted-foreground text-lg mb-8 leading-relaxed font-medium">
+                  Join our inner circle and receive an exclusive 30% reduction on your inaugural acquisition. Meticulously crafted value for the discerning eye.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <Button variant="neonOrange" size="xl" className="group">
-                    Claim Offer
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <Button variant="hero" size="xl" className="group h-16 px-10 rounded-2xl shadow-clay border-b-4 border-primary/30 active:border-b-0 active:translate-y-1 transition-all">
+                    Initialize Identity
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                  <Button variant="glass" size="xl">
-                    Learn More
+                  <Button variant="ghost" size="xl" className="h-16 px-10 rounded-2xl font-black uppercase tracking-widest text-xs">
+                    Learn Principles
                   </Button>
                 </div>
               </div>

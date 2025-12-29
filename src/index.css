@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,61 +6,65 @@
 
 @layer base {
   :root {
-    /* Dark futuristic theme */
-    --background: 230 25% 6%;
-    --foreground: 210 40% 98%;
+    /* User-Defined Petrol & Ivory Edition */
+    --background: 40 33% 97%;
+    /* Soft Ivory #FAF8F4 */
+    --foreground: 0 0% 16%;
+    /* Ink Charcoal #2A2A2A */
 
-    --card: 230 25% 10%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 213 70% 20%;
 
-    --popover: 230 25% 8%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 70% 20%;
 
-    /* Electric cyan/teal primary */
-    --primary: 175 100% 50%;
-    --primary-foreground: 230 25% 6%;
+    /* Primary Petrol Blue #0F3057 */
+    --primary: 213 70% 20%;
+    --primary-foreground: 40 33% 98%;
 
-    /* Neon orange accent */
-    --secondary: 25 100% 55%;
-    --secondary-foreground: 230 25% 6%;
+    /* Secondary Ash Grey #B7BCC5 */
+    --secondary: 219 10% 74%;
+    --secondary-foreground: 0 0% 16%;
 
-    --muted: 230 20% 15%;
-    --muted-foreground: 210 20% 60%;
+    --muted: 219 10% 90%;
+    --muted-foreground: 219 10% 45%;
 
-    /* Purple accent */
-    --accent: 280 100% 65%;
-    --accent-foreground: 210 40% 98%;
+    /* Accent Petrol Blue Lightened or specific Ink Charcoal */
+    --accent: 0 0% 16%;
+    /* Ink Charcoal #2A2A2A */
+    --accent-foreground: 40 33% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 230 20% 18%;
-    --input: 230 20% 15%;
-    --ring: 175 100% 50%;
+    /* Borders: Ash Grey Tones */
+    --border: 219 10% 85%;
+    --input: 219 10% 85%;
+    --ring: 213 70% 20%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
-    /* Custom gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(175 100% 50%) 0%, hsl(200 100% 50%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(25 100% 55%) 0%, hsl(340 100% 55%) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(230 25% 6%) 0%, hsl(230 30% 12%) 50%, hsl(230 25% 6%) 100%);
-    --gradient-glass: linear-gradient(135deg, hsla(0 0% 100% / 0.1) 0%, hsla(0 0% 100% / 0.05) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsla(175 100% 50% / 0.15) 0%, transparent 70%);
+    /* Sophisticated Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(213 70% 20%) 0%, hsl(213 70% 10%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 16%) 0%, hsl(0 0% 8%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(40 33% 97%) 0%, hsl(219 10% 90%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsla(40, 33%, 100%, 0.8) 0%, hsla(219, 10%, 90%, 0.5) 100%);
+    --gradient-glow: radial-gradient(ellipse at center, hsla(213, 70%, 20%, 0.1) 0%, transparent 70%);
 
-    /* Shadows */
-    --shadow-neon: 0 0 30px hsla(175 100% 50% / 0.3), 0 0 60px hsla(175 100% 50% / 0.1);
-    --shadow-orange: 0 0 30px hsla(25 100% 55% / 0.3);
-    --shadow-card: 0 8px 32px hsla(0 0% 0% / 0.4);
-    --shadow-glow: 0 0 80px hsla(175 100% 50% / 0.2);
+    /* Elegant Shadows */
+    --shadow-neon: 0 10px 15px -3px rgba(15, 48, 87, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+    --shadow-orange: 0 4px 6px -1px rgba(42, 42, 42, 0.15);
+    --shadow-card: 0 20px 50px -12px rgba(15, 48, 87, 0.1), 0 8px 24px -8px rgba(42, 42, 42, 0.05);
+    --shadow-glow: 0 0 60px rgba(15, 48, 87, 0.08);
 
-    --sidebar-background: 230 25% 8%;
-    --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 175 100% 50%;
-    --sidebar-primary-foreground: 230 25% 6%;
-    --sidebar-accent: 230 20% 15%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 230 20% 18%;
-    --sidebar-ring: 175 100% 50%;
+    --sidebar-background: 40 33% 98%;
+    --sidebar-foreground: 213 70% 20%;
+    --sidebar-primary: 213 70% 20%;
+    --sidebar-primary-foreground: 40 33% 98%;
+    --sidebar-accent: 219 10% 92%;
+    --sidebar-accent-foreground: 213 70% 15%;
+    --sidebar-border: 219 10% 88%;
+    --sidebar-ring: 213 70% 20%;
   }
 }
 
