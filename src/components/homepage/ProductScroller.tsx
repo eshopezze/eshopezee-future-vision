@@ -3,6 +3,8 @@ import { ChevronLeft, ChevronRight, ShoppingCart, ArrowRight } from "lucide-reac
 import { Link } from "react-router-dom";
 import { type FormattedProduct } from "@/lib/shopifyClient";
 import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
+import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/contexts/CartContext";
 import { motion } from "framer-motion";
 
@@ -74,61 +76,21 @@ const ProductScroller = ({ title, subtitle, products, loading, collectionLink }:
                                 key={product.id}
                                 whileHover={{ y: -4 }}
                                 transition={{ duration: 0.3 }}
-                                className="min-w-[200px] md:min-w-[260px] bg-white border border-border rounded-xl p-3 hover:shadow-xl hover:border-primary/20 transition-all duration-300 snap-start flex flex-col group relative overflow-hidden shadow-sm"
+                                className="min-w-[200px] md:min-w-[260px] snap-start h-full"
                             >
-                                <Link to={`/product/${product.handle}`} className="block flex-grow">
-                                    <div className="aspect-[4/5] overflow-hidden mb-4 rounded-lg bg-gray-50 border border-border group-hover:border-primary/20 transition-all relative">
-                                        <img
-                                            src={product.image || ""}
-                                            alt={product.name}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                                        />
-                                        {/* Dynamic Badges */}
-                                        <div className="absolute top-2 left-2 flex flex-col gap-1.5 z-20">
-                                            {product.originalPrice && (
-                                                <div className="bg-red-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg uppercase tracking-wider">
-                                                    Sale
-                                                </div>
-                                            )}
-                                            {/* Mocking a "New" badge for visual interest */}
-                                            {product.id.length % 2 === 0 && (
-                                                <div className="bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-md shadow-lg uppercase tracking-wider">
-                                                    New
-                                                </div>
-                                            )}
-                                        </div>
-                                        {product.originalPrice && (
-                                            <div className="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm text-red-600 text-[10px] font-black px-2 py-1 rounded border border-red-100 z-20 shadow-sm">
-                                                -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
-                                            </div>
-                                        )}
-                                    </div>
-                                    <h3 className="text-sm font-bold text-foreground line-clamp-2 mb-2 group-hover:text-primary transition-colors duration-200 min-h-[2.5rem] leading-tight px-1">
-                                        {product.name}
-                                    </h3>
-                                    <div className="flex items-center gap-2 mb-4 px-1">
-                                        <span className="text-primary font-black text-lg">₹{product.price.toLocaleString("en-IN")}</span>
-                                        {product.originalPrice && (
-                                            <span className="text-xs text-muted-foreground line-through opacity-60 font-medium">₹{product.originalPrice.toLocaleString("en-IN")}</span>
-                                        )}
-                                    </div>
-                                </Link>
-                                <Button
-                                    size="sm"
-                                    className="w-full h-10 font-black rounded-lg bg-primary hover:bg-primary/90 text-white shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 flex items-center justify-center gap-2 z-20 relative uppercase text-[10px] tracking-widest"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        addItem(product.variantId, 1);
-                                    }}
-                                >
-                                    <ShoppingCart className="w-3.5 h-3.5" />
-                                    Add to Cart
-                                </Button>
+                                <ProductCard
+                                    id={product.id}
+                                    name={product.name}
+                                    handle={product.handle}
+                                    price={product.price}
+                                    originalPrice={product.originalPrice}
+                                    image={product.image || ""}
+                                />
                             </motion.div>
                         ))}
                     <Link
                         to={collectionLink || "/products"}
-                        className="min-w-[200px] md:min-w-[260px] flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl hover:border-primary/40 hover:bg-primary/[0.02] transition-all duration-300 group/all bg-white"
+                        className="min-w-[200px] md:min-w-[260px] flex flex-col items-center justify-center border-2 border-dashed border-border/50 rounded-xl hover:border-primary/40 hover:bg-primary/[0.02] transition-all duration-300 group/all bg-card"
                     >
                         <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 group-hover/all:scale-110 transition-all">
                             <ArrowRight className="w-6 h-6 text-primary" />

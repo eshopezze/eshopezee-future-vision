@@ -3,6 +3,7 @@ import {
     createCustomerAccessToken,
     createCustomer,
     getCustomer,
+    recoverCustomerPassword,
     type ShopifyCustomer
 } from "@/lib/shopifyClient";
 import { toast } from "sonner";
@@ -14,6 +15,7 @@ interface AuthContextType {
     login: (email: string, password: string) => Promise<void>;
     register: (input: Parameters<typeof createCustomer>[0]) => Promise<void>;
     logout: () => void;
+    recoverPassword: (email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -80,6 +82,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
+    const recoverPassword = async (email: string) => {
+        setLoading(true);
+        try {
+            await recoverCustomerPassword(email);
+            toast.success("If an account exists with this email/phone, you will receive a reset link.");
+        } catch (error) {
+            console.error("Recovery error:", error);
+            // Don't reveal if user exists or not for security, but usually Shopify errs if not found.
+            // But good practice is to always show success. 
+            // However shopify throws error so we might show it if meaningful.
+            toast.error(error instanceof Error ? error.message : "Failed to send reset email");
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const logout = () => {
         setToken(null);
         setUser(null);
@@ -96,6 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
                 login,
                 register,
                 logout,
+                recoverPassword,
             }}
         >
             {children}

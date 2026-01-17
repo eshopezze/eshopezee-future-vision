@@ -1,5 +1,6 @@
 import { X, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,7 +21,7 @@ export const CartSidebar = () => {
       />
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-[#FAF8F4] border-l border-primary/10 z-50 animate-slide-in-right flex flex-col shadow-clay">
+      <div className="fixed right-0 top-0 h-full w-full max-w-md bg-background border-l border-primary/10 z-50 animate-slide-in-right flex flex-col shadow-clay">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div className="flex items-center gap-3">
@@ -56,7 +57,7 @@ export const CartSidebar = () => {
               {items.map((item) => (
                 <div
                   key={item.lineId}
-                  className="flex gap-4 p-5 bg-white border border-border/50 rounded-[2rem] shadow-sm hover:shadow-clay/10 transition-all duration-500"
+                  className="flex gap-4 p-5 bg-card border border-border/50 rounded-[2rem] shadow-sm hover:shadow-neon hover:border-primary/30 transition-all duration-500"
                 >
                   <button
                     onClick={() => {
@@ -137,11 +138,11 @@ export const CartSidebar = () => {
                 ₹{totalPrice.toLocaleString()}
               </span>
             </div>
-            <Button
-              variant="hero"
-              size="lg"
-              className="w-full h-16 rounded-2xl bg-[#2A2A2A] hover:bg-[#1A1A1A] text-white font-black uppercase tracking-[0.2em] shadow-xl shadow-black/10 hover:shadow-black/20 border-b-4 border-black/30 active:border-b-0 active:translate-y-1 transition-all"
+            <AddToCartButton
+              variant="large"
+              text={loading ? "Synchronizing..." : "Initiate Checkout"}
               disabled={loading || !checkoutUrl}
+              showIcon={false}
               onClick={() => {
                 if (!user) {
                   setIsOpen(false);
@@ -150,9 +151,7 @@ export const CartSidebar = () => {
                 }
                 if (checkoutUrl) window.location.href = checkoutUrl;
               }}
-            >
-              {loading ? "Synchronizing..." : "Initiate Checkout"}
-            </Button>
+            />
             <button
               onClick={clearCart}
               className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"

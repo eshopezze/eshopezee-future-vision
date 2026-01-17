@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
+import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/contexts/CartContext";
 import { useEffect, useState } from "react";
 import { fetchAllProducts, type FormattedProduct } from "@/lib/shopifyClient";
@@ -98,7 +100,7 @@ export const TrendingProducts = () => {
               <motion.div variants={item} key={product.id}>
                 <div
                   onClick={() => navigate(`/product/${product.handle}`)}
-                  className="group bg-white rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/30 block cursor-pointer h-full flex flex-col shadow-sm hover:shadow-clay/20 transition-all duration-700"
+                  className="group bg-card rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/50 block cursor-pointer h-full flex flex-col shadow-sm hover:shadow-neon transition-all duration-700"
                 >
                   {/* Image Container */}
                   <div className="relative aspect-square overflow-hidden bg-secondary/5">
@@ -131,15 +133,11 @@ export const TrendingProducts = () => {
 
                     {/* Quick Add Overlay */}
                     <div className="absolute inset-x-4 bottom-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 hidden md:block">
-                      <Button
-                        variant="hero"
-                        className="w-full shadow-lg bg-[#2A2A2A] hover:bg-[#1A1A1A] border-none rounded-xl"
-                        size="sm"
+                      <AddToCartButton
+                        variant="compact"
+                        text="Quick Add"
                         onClick={(e) => handleAddToCart(e, product)}
-                      >
-                        <ShoppingCart className="w-4 h-4 mr-2" />
-                        Quick Add
-                      </Button>
+                      />
                     </div>
                   </div>
 

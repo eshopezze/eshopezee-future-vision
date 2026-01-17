@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Loader2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
+import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/contexts/CartContext";
 import { useEffect, useState } from "react";
 import { fetchAllProducts, type FormattedProduct } from "@/lib/shopifyClient";
@@ -50,7 +52,7 @@ export const NewArrivals = () => {
     };
 
     return (
-        <section id="new-arrivals" className="py-24 relative bg-[#FDFBF7]">
+        <section id="new-arrivals" className="py-24 relative bg-background">
             <div className="container mx-auto px-6 sm:px-12 lg:px-20">
                 {/* Section Header */}
                 <motion.div
@@ -89,58 +91,14 @@ export const NewArrivals = () => {
                     >
                         {products.map((product) => (
                             <motion.div variants={item} key={product.id}>
-                                <div
-                                    onClick={() => navigate(`/product/${product.handle}`)}
-                                    className="group bg-white rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/30 block cursor-pointer h-full flex flex-col shadow-sm hover:shadow-clay/20 transition-all duration-700"
-                                >
-                                    {/* Image Container */}
-                                    <div className="relative aspect-square overflow-hidden bg-white">
-                                        {product.image ? (
-                                            <img
-                                                src={product.image}
-                                                alt={product.name}
-                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                                                No Image
-                                            </div>
-                                        )}
-
-                                        {/* New Tag */}
-                                        <span className="absolute top-4 left-4 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
-                                            New
-                                        </span>
-
-                                        {/* Quick Add Overlay */}
-                                        <div className="absolute inset-x-4 bottom-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 hidden md:block">
-                                            <Button
-                                                variant="secondary"
-                                                className="w-full shadow-lg bg-[#2A2A2A] hover:bg-[#1A1A1A] text-white border-none rounded-xl"
-                                                size="sm"
-                                                onClick={(e) => handleAddToCart(e, product)}
-                                            >
-                                                <ShoppingCart className="w-4 h-4 mr-2" />
-                                                Quick Add
-                                            </Button>
-                                        </div>
-                                    </div>
-
-                                    {/* Content */}
-                                    <div className="p-5 flex flex-col flex-grow text-center">
-                                        {/* Name */}
-                                        <h3 className="font-heading font-semibold text-foreground mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors text-sm md:text-base">
-                                            {product.name}
-                                        </h3>
-
-                                        {/* Price */}
-                                        <div className="flex items-center justify-center gap-2 mt-auto">
-                                            <span className="font-heading text-xl font-black text-primary tracking-tighter">
-                                                ₹{product.price.toLocaleString('en-IN')}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <ProductCard
+                                    id={product.id}
+                                    name={product.name}
+                                    handle={product.handle}
+                                    price={product.price}
+                                    originalPrice={product.originalPrice}
+                                    image={product.image}
+                                />
                             </motion.div>
                         ))}
                     </motion.div>

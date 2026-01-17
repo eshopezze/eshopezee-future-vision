@@ -3,10 +3,12 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ArrowLeft, Heart, ShoppingCart, Star, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/contexts/CartContext";
 import { useEffect, useState } from "react";
 import { fetchAllProducts, type PageInfo } from "@/lib/shopifyClient";
 import { toast } from "sonner";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
 
 interface Product {
     id: string;
@@ -118,48 +120,60 @@ const AllProducts = () => {
                                     products.map((product) => (
                                         <div
                                             key={product.id}
-                                            className="group bg-white/[0.02] border border-white/5 rounded-2xl p-3 hover:border-white/10 transition-all duration-500 relative overflow-hidden"
+                                            onClick={() => navigate(`/product/${product.handle}`)}
+                                            className="group bg-card rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/50 block cursor-pointer h-full flex flex-col shadow-sm hover:shadow-neon transition-all duration-700 relative"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-                                            <div className="relative aspect-square overflow-hidden mb-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-primary/10 transition-all duration-700 shadow-inner" onClick={() => navigate(`/product/${product.handle}`)}>
-                                                <img
-                                                    src={product.image}
-                                                    alt={product.name}
-                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
-                                                />
-                                                {product.originalPrice && product.originalPrice > product.price && (
-                                                    <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-md border border-white/10 text-primary text-[8px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase tracking-wider">
-                                                        SALE
+                                            {/* Image Container */}
+                                            <div className="relative aspect-square overflow-hidden bg-muted">
+                                                {product.image ? (
+                                                    <img
+                                                        src={product.image}
+                                                        alt={product.name}
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                                                        No Image
                                                     </div>
                                                 )}
+
+                                                {/* Sale Tag */}
+                                                {product.originalPrice && product.originalPrice > product.price && (
+                                                    <span className="absolute top-4 left-4 px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
+                                                        Sale
+                                                    </span>
+                                                )}
+
+                                                {/* Quick Add Overlay */}
+                                                <div className="absolute inset-x-4 bottom-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10 hidden md:block" onClick={(e) => e.stopPropagation()}>
+                                                    <AddToCartButton
+                                                        variant="compact"
+                                                        text="Quick Add"
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            addItem(product.id, 1);
+                                                        }}
+                                                    />
+                                                </div>
                                             </div>
 
-                                            <Link to={`/product/${product.handle}`} className="block">
-                                                <h3 className="text-xs md:text-sm font-semibold text-foreground/90 line-clamp-2 mb-2 px-1 group-hover:text-primary transition-colors duration-300 h-9 leading-tight">
+                                            {/* Content */}
+                                            <div className="p-5 flex flex-col flex-grow text-center">
+                                                <h3 className="font-heading font-semibold text-foreground mb-2 line-clamp-2 leading-tight group-hover:text-primary transition-colors text-sm md:text-base">
                                                     {product.name}
                                                 </h3>
-                                                <div className="flex items-center gap-2 mb-3 px-1">
-                                                    <span className="text-foreground font-bold text-base">₹{product.price.toLocaleString()}</span>
+
+                                                <div className="flex items-center justify-center gap-2 mt-auto">
+                                                    <span className="font-heading text-xl font-black text-primary tracking-tighter">
+                                                        ₹{product.price.toLocaleString()}
+                                                    </span>
                                                     {product.originalPrice && product.originalPrice > product.price && (
-                                                        <span className="text-sm text-muted-foreground line-through">
+                                                        <span className="text-xs text-muted-foreground line-through">
                                                             ₹{product.originalPrice.toLocaleString()}
                                                         </span>
                                                     )}
                                                 </div>
-                                            </Link>
-
-                                            <Button
-                                                size="sm"
-                                                className="w-full h-9 font-bold rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-primary-foreground hover:shadow-[0_0_15px_hsla(175,100%,50%,0.3)] transition-all duration-300 flex items-center justify-center gap-2 group/btn z-20 relative"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    addItem(product.id, 1);
-                                                }}
-                                            >
-                                                <ShoppingCart className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:scale-110" />
-                                                <span className="uppercase tracking-[0.15em] text-[9px]">Add</span>
-                                            </Button>
+                                            </div>
                                         </div>
                                     ))
                                 ) : (

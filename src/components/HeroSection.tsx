@@ -53,7 +53,7 @@ export const HeroSection = () => {
   const handlePrev = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-[#FAF8F4]">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background">
       {/* Background Slider */}
       <AnimatePresence mode="wait">
         <motion.div
@@ -68,7 +68,7 @@ export const HeroSection = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${slide.image})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -104,7 +104,7 @@ export const HeroSection = () => {
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to={slide.link}>
-                  <Button size="lg" className="group text-base px-10 py-7 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-500 bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-[0.2em] border-b-4 border-primary/40">
+                  <Button size="lg" className="group text-base px-10 py-7 rounded-2xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-500 bg-primary hover:bg-primary/90 text-primary-foreground font-black uppercase tracking-[0.2em] border-b-4 border-primary/40">
                     {slide.cta}
                     <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform duration-500" />
                   </Button>
@@ -117,7 +117,7 @@ export const HeroSection = () => {
 
       {/* Navigation Controls */}
       <div className="absolute bottom-10 right-10 flex gap-4 z-20 hidden md:flex items-center">
-        <Button variant="outline" size="icon" onClick={handlePrev} className="rounded-full bg-white/50 backdrop-blur-sm hover:bg-white border-border shadow-sm">
+        <Button variant="outline" size="icon" onClick={handlePrev} className="rounded-full bg-background/50 backdrop-blur-sm hover:bg-background border-border shadow-sm">
           <ChevronLeft className="w-5 h-5" />
         </Button>
         <div className="flex gap-2 items-center mx-2">
@@ -125,12 +125,12 @@ export const HeroSection = () => {
             <button
               key={idx}
               onClick={() => setCurrent(idx)}
-              className={`h-2 rounded-full transition-all duration-500 ${current === idx ? "w-10 bg-primary shadow-clay" : "w-2 bg-foreground/10 hover:bg-foreground/20"
+              className={`h-2 rounded-full transition-all duration-500 ${current === idx ? "w-10 bg-primary shadow-glow" : "w-2 bg-foreground/10 hover:bg-foreground/20"
                 }`}
             />
           ))}
         </div>
-        <Button variant="outline" size="icon" onClick={handleNext} className="rounded-full bg-white/50 backdrop-blur-sm hover:bg-white border-border shadow-sm">
+        <Button variant="outline" size="icon" onClick={handleNext} className="rounded-full bg-background/50 backdrop-blur-sm hover:bg-background border-border shadow-sm">
           <ChevronRight className="w-5 h-5" />
         </Button>
       </div>

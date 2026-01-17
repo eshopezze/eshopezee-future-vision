@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Star, Heart, ShoppingCart, Minus, Plus, Truck, Shield, RotateCcw, ChevronLeft, ChevronRight, ThumbsUp, ThumbsDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -520,10 +521,12 @@ const ProductDetail = () => {
                 </div>
 
                 <div className="flex gap-4 flex-1">
-                  <Button size="lg" className="flex-1 bg-[#2A2A2A] hover:bg-[#1A1A1A] text-white shadow-xl shadow-black/10 hover:shadow-black/20 rounded-2xl h-16 text-base font-black uppercase tracking-[0.2em] group/cart overflow-hidden relative border-b-4 border-black/30 active:border-b-0 active:translate-y-1 transition-all" onClick={handleAddToCart}>
-                    <ShoppingCart className="w-5 h-5 mr-3 transition-transform group-hover/cart:-translate-y-1 group-hover/cart:translate-x-1" />
-                    Add to Collection
-                  </Button>
+                  <AddToCartButton
+                    variant="large"
+                    text="Add to Collection"
+                    onClick={handleAddToCart}
+                    className="flex-1"
+                  />
 
                   <Button
                     variant="outline"

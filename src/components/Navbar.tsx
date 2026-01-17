@@ -59,12 +59,12 @@ export const Navbar = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FAF8F4]/95 backdrop-blur-md border-b border-primary/10 shadow-sm shadow-primary/5 transition-all duration-300">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-primary/10 shadow-sm shadow-primary/5 transition-all duration-300">
       <div className="container mx-auto">
         <div className="flex items-center justify-between h-16 px-4 sm:px-8 lg:px-12 relative z-50">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group shrink-0 transition-transform active:scale-95">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-heading font-black text-white text-xl shadow-lg shadow-primary/20 group-hover:shadow-clay group-hover:scale-105 transition-all duration-500">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-heading font-black text-primary-foreground text-xl shadow-lg shadow-primary/20 group-hover:shadow-glow group-hover:scale-105 transition-all duration-500">
               E
             </div>
             <div className="flex flex-col -space-y-1">
@@ -88,7 +88,7 @@ export const Navbar = () => {
                     Categories
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[600px] gap-3 p-4 md:w-[700px] md:grid-cols-3 lg:w-[850px] bg-white border border-border rounded-xl shadow-xl animate-in fade-in zoom-in-95 duration-200">
+                    <ul className="grid w-[600px] gap-3 p-4 md:w-[700px] md:grid-cols-3 lg:w-[850px] bg-card border border-border rounded-xl shadow-xl animate-in fade-in zoom-in-95 duration-200">
                       {collections.length > 0 ? (
                         collections.map((collection) => (
                           <li key={collection.id}>
@@ -114,7 +114,7 @@ export const Navbar = () => {
                                   </div>
                                 )}
                                 <div className="flex flex-col gap-1">
-                                  <div className="text-sm font-semibold leading-none group-hover/item:text-primary transition-colors">{collection.title}</div>
+                                  <div className="text-sm font-semibold leading-none text-foreground group-hover/item:text-primary transition-colors">{collection.title}</div>
                                   <p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground">
                                     Explore {collection.title}
                                   </p>
@@ -222,7 +222,7 @@ export const Navbar = () => {
 
         {/* Mobile Nav */}
         <div className={cn(
-          "lg:hidden fixed inset-0 z-40 bg-[#FAF8F4] transition-all duration-500 ease-in-out pt-24 pb-8 px-6 h-[100dvh] overflow-hidden flex flex-col",
+          "lg:hidden fixed inset-0 z-40 bg-background transition-all duration-500 ease-in-out pt-24 pb-8 px-6 h-[100dvh] overflow-hidden flex flex-col",
           isOpen ? "translate-y-0 opacity-100 visible" : "-translate-y-full opacity-0 invisible"
         )}>
           <div className="flex flex-col h-full space-y-8 relative">

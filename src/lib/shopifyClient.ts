@@ -1373,3 +1373,25 @@ export async function fetchShopPolicy(policyType: PolicyType): Promise<ShopPolic
 
   return policy;
 }
+
+/**
+ * Customer Recovery
+ */
+export async function recoverCustomerPassword(email: string): Promise<void> {
+  const query = `
+    mutation {
+      customerRecover(email: "${email}") {
+        customerUserErrors {
+          message
+        }
+      }
+    }
+  `;
+
+  const data = await shopifyFetch<{ customerRecover: any }>(query);
+  const result = data.customerRecover;
+
+  if (result.customerUserErrors && result.customerUserErrors.length > 0) {
+    throw new Error(result.customerUserErrors[0].message);
+  }
+}

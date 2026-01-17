@@ -41,7 +41,7 @@ const features = [
 
 export const AIFeaturesSection = () => {
   return (
-    <section id="ai" className="py-32 relative overflow-hidden bg-[#FAF8F4]">
+    <section id="ai" className="py-32 relative overflow-hidden bg-background">
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-[150px] -z-10" />
 
@@ -66,7 +66,7 @@ export const AIFeaturesSection = () => {
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="group bg-white rounded-[2rem] p-10 hover:shadow-xl hover:shadow-primary/10 border border-border/50 hover:border-primary/20 transition-all duration-500 relative overflow-hidden"
+              className="group bg-card rounded-[2rem] p-10 hover:shadow-neon hover:shadow-primary/10 border border-border/50 hover:border-primary/20 transition-all duration-500 relative overflow-hidden"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-16 -mt-16 group-hover:bg-primary/10 transition-colors" />

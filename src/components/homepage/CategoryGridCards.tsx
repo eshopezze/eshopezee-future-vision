@@ -32,7 +32,7 @@ const CategoryGridCard = ({ title, collectionHandle }: GridCardProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white p-5 rounded-xl border border-border shadow-sm flex flex-col hover:shadow-lg hover:border-primary/20 transition-all duration-300 group relative overflow-hidden h-full"
+            className="bg-card p-5 rounded-xl border border-border/50 shadow-sm flex flex-col hover:shadow-neon hover:border-primary/50 transition-all duration-300 group relative overflow-hidden h-full"
         >
             <h3 className="font-heading font-bold text-base mb-5 text-foreground flex items-center gap-2">
                 <span className="w-1.5 h-4 bg-primary rounded-full" />
@@ -87,8 +87,25 @@ export const CategoryGridCards = () => {
     }, []);
 
     return (
-        <section className="py-12 bg-background relative overflow-hidden">
-            <div className="container mx-auto px-6 relative z-10">
+        <section className="py-24 bg-background relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -ml-20 -mt-20" />
+
+            <div className="container mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div className="space-y-4">
+                        <h2 className="font-heading text-3xl md:text-5xl font-black uppercase tracking-tight text-foreground">
+                            Shop by <span className="text-primary">Category</span>
+                        </h2>
+                        <p className="text-muted-foreground text-lg max-w-xl">
+                            Explore our curated collections of premium essentials.
+                        </p>
+                    </div>
+                    <button className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary hover:text-primary/80 transition-colors">
+                        View All Categories
+                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </button>
+                </div>
+
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     {collections.map((col) => (
                         <CategoryGridCard
